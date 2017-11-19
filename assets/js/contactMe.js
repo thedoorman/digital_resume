@@ -13,4 +13,5 @@ console.log("Settings: " + settings)
 $.ajax(settings).done(function (response) {
   console.log(response);
 });
+  document.location.href="/";
 }
