@@ -5,7 +5,8 @@ function corsPost() {
   var settings = {
   "async": true,
   "crossDomain": false,
-  "url": "https://ttzisvgb7j.execute-api.us-east-1.amazonaws.com/prod/contactMe?name="+name+"&email="+email+"&message="+message,
+  "url": "https://ttzisvgb7j.execute-api.us-east-1.amazonaws.com/prod/contactMe?",
+  "data": "name="+name+"&email="+email+"&message="+message,
   "method": "POST",
   "headers": {
     "access-control-allow-origin": "*",
@@ -16,6 +17,7 @@ console.log("Settings: " +
 " Async: " + settings.async +
 " Crossdomain: " + settings.crossDomain +
 " url: " + settings.url +
+" data: " + settings.data +
 " method: " + settings.method +
 " headers: " + settings.headers)
 
