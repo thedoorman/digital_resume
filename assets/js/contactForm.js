@@ -1,8 +1,8 @@
 var createCORSRequest = function(method, url) {
     console.log("INFO: Sending POST request");
-    var name = document.getElementsByName("name").val();
-    var email = document.getElementsByName("email").val();
-    var message = document.getElementsByName("message").val();
+    var name = document.getElementsByName("name").val;
+    var email = document.getElementsByName("email").val;
+    var message = document.getElementsByName("message").val;
     var xhr = new XMLHttpRequest();
     if ("withCredentials" in xhr) {
       // Most browsers.
