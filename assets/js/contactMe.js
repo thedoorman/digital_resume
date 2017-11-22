@@ -34,6 +34,7 @@ $.ajax(settings).done(function (response) {
 }
 
 function post() {
+  console.log("PREPARING POST MESSAGE")
   var data = null;
 
   var xhr = new XMLHttpRequest();
@@ -50,5 +51,8 @@ function post() {
   xhr.setRequestHeader("access-control-allow-origin", "*");
   xhr.setRequestHeader("access-control-allowheaders", "Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token");
 
-  xhr.send(data);
+  xhr.send(JSON.stringify(data));
+  xhr.onloadend = function () {
+    // done
+  };
 }
