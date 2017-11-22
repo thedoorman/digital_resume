@@ -17,26 +17,24 @@ var createCORSRequest = function(method, url) {
     return xhr;
   };
  
-function makeCall(){
-    console.log('INFO: Grabbing parameters!')    
-    var name = document.getElementsByName("name")[0].value;
-    var email = document.getElementsByName("email")[0].value;
-    var message = document.getElementsByName("message")[0].value;
-    var url = 'https://ttzisvgb7j.execute-api.us-east-1.amazonaws.com/prod/contactMe?name='+name+'&email='+email+'&message='+message;
-    var method = 'POST';
-    console.log('INFO: URL: '+ url)        
-    var xhr = createCORSRequest(method, url);
-    xhr.onload = function() {
-        // Success code goes here.
-        console.log('SUCCESS: Made the call!')
-        };
-        
-        xhr.onerror = function() {
-        // Error code goes here.
-        console.log('ERROR: Did not make the call!')
-        
-        };
-        
-        xhr.send();
-};
+console.log('INFO: Grabbing parameters!')    
+var name = document.getElementsByName("name")[0].value;
+var email = document.getElementsByName("email")[0].value;
+var message = document.getElementsByName("message")[0].value;
+var url = 'https://ttzisvgb7j.execute-api.us-east-1.amazonaws.com/prod/contactMe?name='+name+'&email='+email+'&message='+message;
+var method = 'POST';
+console.log('INFO: URL: '+ url)        
+var xhr = createCORSRequest(method, url);
+xhr.onload = function() {
+    // Success code goes here.
+    console.log('SUCCESS: Made the call!')
+    };
+    
+    xhr.onerror = function() {
+    // Error code goes here.
+    console.log('ERROR: Did not make the call!')
+    
+    };
+    
+    xhr.send();
   
