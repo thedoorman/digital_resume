@@ -9,7 +9,7 @@ function corsPost() {
     "cache-control": "no-cache",
 
   },
-  "async": true,
+  "async": false,
   "crossDomain": true,
   "url": "https://ttzisvgb7j.execute-api.us-east-1.amazonaws.com/prod/contactMe?name="+name+"&email="+email+"&message="+message,
   "data": "",
@@ -23,7 +23,7 @@ console.log("Settings: " +
 " method: " + settings.method +
 " headers: " + settings.headers);
 
-$.ajax(settings).done(function (response) {
+$.post(settings).done(function (response) {
   console.log(response);
 });
 
