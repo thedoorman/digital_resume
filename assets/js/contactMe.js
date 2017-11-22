@@ -6,7 +6,7 @@ function corsPost() {
   "async": true,
   "crossDomain": true,
   "url": "https://ttzisvgb7j.execute-api.us-east-1.amazonaws.com/prod/contactMe?name="+name+"&email="+email+"&message="+message,
-  "method": "OPTIONS",
+  "method": "POST",
   "headers": {
     "access-control-allow-origin": "*",
     "access-control-allowheaders": "Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token",
@@ -22,7 +22,7 @@ console.log("Settings: " +
 $.ajax(settings).done(function (response) {
   console.log(response);
 });
-settings = {
+/*settings = {
   "async": true,
   "crossDomain": true,
   "url": "https://ttzisvgb7j.execute-api.us-east-1.amazonaws.com/prod/contactMe?name="+name+"&email="+email+"&message="+message,
@@ -41,5 +41,5 @@ console.log("Settings: " +
 $.ajax(settings).done(function (response) {
   console.log(response);
 });
-  location.reload();
+  location.reload();*/
 }
