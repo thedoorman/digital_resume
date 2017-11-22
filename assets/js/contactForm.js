@@ -15,18 +15,22 @@ var createCORSRequest = function(method, url) {
     }
     return xhr;
   };
+ 
+function makeCall(){
+    var name = document.getElementsByName("name")[0].value;
+    var email = document.getElementsByName("email")[0].value;
+    var message = document.getElementsByName("message")[0].value;
+    var url = 'https://ttzisvgb7j.execute-api.us-east-1.amazonaws.com/prod/contactMe?name='+name+'&email='+email+'&message='+message;
+    var method = 'POST';
+    var xhr = createCORSRequest(method, url);
+    xhr.onload = function() {
+        // Success code goes here.
+        };
+        
+        xhr.onerror = function() {
+        // Error code goes here.
+        };
+        
+        xhr.send();
+};
   
-  var url = 'https://ttzisvgb7j.execute-api.us-east-1.amazonaws.com/prod/contactMe?'
-  var params='name='+$("contactForm").name.value+'&email='+$("contactForm").email.value+'&message='+$("contactForm").message.value;
-  var method = 'POST';
-  var xhr = createCORSRequest(method, url);
-  
-  xhr.onload = function() {
-    // Success code goes here.
-  };
-  
-  xhr.onerror = function() {
-    // Error code goes here.
-  };
-  
-  xhr.send();
