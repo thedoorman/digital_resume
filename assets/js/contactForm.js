@@ -1,8 +1,6 @@
 var createCORSRequest = function(method, url) {
     console.log("INFO: Sending POST request");
-    var name = document.getElementsByName("form_name")[0].textContent;
-    var email = document.getElementsByName("form_email")[0].textContent;
-    var message = document.getElementsByName("form_message")[0].textContent;
+    var { name, email, message } = getParams();
     url += 'name='+name+'&email='+email+'&message='+message;
     var xhr = new XMLHttpRequest();
     if ("withCredentials" in xhr) {
@@ -32,3 +30,10 @@ var createCORSRequest = function(method, url) {
   };
   
   xhr.send();
+
+function getParams() {
+    var name = document.getElementsByName("form_name")[0].textContent;
+    var email = document.getElementsByName("form_email")[0].textContent;
+    var message = document.getElementsByName("form_message")[0].textContent;
+    return { name, email, message };
+}
