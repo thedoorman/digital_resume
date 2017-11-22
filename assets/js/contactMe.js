@@ -5,12 +5,10 @@ function corsPost() {
   var settings = {
   "async": false,
   "crossDomain": true,
-  "url": "https://ttzisvgb7j.execute-api.us-east-1.amazonaws.com/prod/contactMe?",
-  "data": "name="+name+"&email="+email+"&message="+message,
+  "url": "https://ttzisvgb7j.execute-api.us-east-1.amazonaws.com/prod/contactMe?name="+name+"&email="+email+"&message="+message,
+  "data": "",
   "method": "POST",
   "headers": {
-    "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Headers": "Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token",
   }
 }
 console.log("Settings: " + 
@@ -26,3 +24,5 @@ $.post(settings).done(function (response) {
 });
 
 }
+/*"Access-Control-Allow-Origin": "*",
+"Access-Control-Allow-Headers": "Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token",*/
