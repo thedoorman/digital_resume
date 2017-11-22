@@ -1,7 +1,6 @@
 var createCORSRequest = function(method, url) {
     console.log("INFO: Sending POST request");
-    var { name, email, message } = getParams();
-    url += 'name='+name+'&email='+email+'&message='+message;
+
     var xhr = new XMLHttpRequest();
     if ("withCredentials" in xhr) {
       // Most browsers.
@@ -16,8 +15,10 @@ var createCORSRequest = function(method, url) {
     }
     return xhr;
   };
-  
-  var url = 'https://ttzisvgb7j.execute-api.us-east-1.amazonaws.com/prod/contactMe?';
+  var name = document.getElementsByName("form_name")[0].val;
+  var email = document.getElementsByName("form_email")[0].val;
+  var message = document.getElementsByName("form_message")[0].val;
+  var url = 'https://ttzisvgb7j.execute-api.us-east-1.amazonaws.com/prod/contactMe?name='+name+'&email='+email+'&message='+message;
   var method = 'POST';
   var xhr = createCORSRequest(method, url);
   
@@ -30,10 +31,3 @@ var createCORSRequest = function(method, url) {
   };
   
   xhr.send();
-
-function getParams() {
-    var name = document.getElementsByName("form_name")[0].textContent;
-    var email = document.getElementsByName("form_email")[0].textContent;
-    var message = document.getElementsByName("form_message")[0].textContent;
-    return { name, email, message };
-}
