@@ -16,7 +16,8 @@ var createCORSRequest = function(method, url) {
     return xhr;
   };
   
-  var url = 'https://ttzisvgb7j.execute-api.us-east-1.amazonaws.com/prod/contactMe?name='+name+'&email='+email+'&message='+message;
+  var url = 'https://ttzisvgb7j.execute-api.us-east-1.amazonaws.com/prod/contactMe?'
+  var params='name='+$("contactForm").name.value+'&email='+$("contactForm").email.value+'&message='+$("contactForm").message.value;
   var method = 'POST';
   var xhr = createCORSRequest(method, url);
   
