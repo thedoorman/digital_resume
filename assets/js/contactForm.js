@@ -42,5 +42,4 @@ function makeCall(){
         };
         
         xhr.send();
-        location.reload(); 
 };
