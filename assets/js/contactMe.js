@@ -38,7 +38,7 @@ function post() {
   var data = null;
 
   var xhr = new XMLHttpRequest();
-  xhr.withCredentials = true;
+  xhr.withCredentials = false;
 
   xhr.addEventListener("readystatechange", function () {
   if (this.readyState === 4) {
@@ -50,8 +50,8 @@ function post() {
   xhr.setRequestHeader("cache-control", "no-cache");
   xhr.setRequestHeader("access-control-allow-origin", "*");
   xhr.setRequestHeader("access-control-allowheaders", "Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token");
-
-  xhr.send(JSON.stringify(data));
+  console.log()
+  xhr.send();
   xhr.onloadend = function () {
     // done
   };
