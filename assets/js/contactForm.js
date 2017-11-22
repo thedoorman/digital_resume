@@ -1,8 +1,9 @@
-var createCORSRequest = function(method, url, name, email, message) {
+var createCORSRequest = function(method, url) {
     console.log("INFO: Sending POST request");
-    var name = document.getElementsByName("name")[0].textContent;
-    var email = document.getElementsByName("email")[0].textContent;
-    var message = document.getElementsByName("message")[0].textContent;
+    var name = document.getElementsByName("form_name")[0].textContent;
+    var email = document.getElementsByName("form_email")[0].textContent;
+    var message = document.getElementsByName("form_message")[0].textContent;
+    url += 'name='+name+'&email='+email+'&message='+message;
     var xhr = new XMLHttpRequest();
     if ("withCredentials" in xhr) {
       // Most browsers.
@@ -18,7 +19,7 @@ var createCORSRequest = function(method, url, name, email, message) {
     return xhr;
   };
   
-  var url = 'https://ttzisvgb7j.execute-api.us-east-1.amazonaws.com/prod/contactMe?name='+name+'&email='+email+'&message='+message;
+  var url = 'https://ttzisvgb7j.execute-api.us-east-1.amazonaws.com/prod/contactMe?';
   var method = 'POST';
   var xhr = createCORSRequest(method, url);
   
