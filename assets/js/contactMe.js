@@ -23,7 +23,7 @@ console.log("Settings: " +
 " method: " + settings.method +
 " headers: " + settings.headers);
 
-$.ajax(settings).done(function (response) {
+$.post(settings).done(function (response) {
   console.log(response);
 });
 
