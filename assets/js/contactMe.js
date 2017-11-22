@@ -12,7 +12,13 @@ function corsPost() {
     "access-control-allowheaders": "Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token",
   }
 }
-console.log("Settings: " + settings)
+console.log("Settings: " + 
+" Async: " + settings.async +
+" Crossdomain: " + settings.crossDomain +
+" url: " + settings.url +
+" method: " + settings.method +
+" headers: " + settings.headers)
+
 $.ajax(settings).done(function (response) {
   console.log(response);
 });
@@ -26,33 +32,14 @@ settings = {
     "access-control-allowheaders": "Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token",
   }
 }
-console.log("Settings: " + settings)
+console.log("Settings: " + 
+" Async: " + settings.async +
+" Crossdomain: " + settings.crossDomain +
+" url: " + settings.url +
+" method: " + settings.method +
+" headers: " + settings.headers)
 $.ajax(settings).done(function (response) {
   console.log(response);
 });
   location.reload();
-}
-
-function post() {
-  console.log("PREPARING POST MESSAGE")
-  var data = null;
-
-  var xhr = new XMLHttpRequest();
-  xhr.withCredentials = false;
-
-  xhr.addEventListener("readystatechange", function () {
-  if (this.readyState === 4) {
-      console.log(this.responseText);
-  }
-  });
-
-  xhr.open("POST", "https://ttzisvgb7j.execute-api.us-east-1.amazonaws.com/prod/contactMe?name=Jesse%20Clark&email=yourmom%40gmail.com&message=How%20are%20you%20doing%20you%20idiot!%3F");
-  xhr.setRequestHeader("cache-control", "no-cache");
-  xhr.setRequestHeader("access-control-allow-origin", "*");
-  xhr.setRequestHeader("access-control-allowheaders", "Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token");
-  console.log()
-  xhr.send();
-  xhr.onloadend = function () {
-    // done
-  };
 }
