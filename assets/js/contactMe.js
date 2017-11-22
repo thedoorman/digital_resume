@@ -4,7 +4,7 @@ function corsPost() {
   var message = document.getElementsByName("message")[0].value;
   var settings = {
   "async": true,
-  "crossDomain": true,
+  "crossDomain": false,
   "url": "https://ttzisvgb7j.execute-api.us-east-1.amazonaws.com/prod/contactMe?name="+name+"&email="+email+"&message="+message,
   "method": "POST",
   "headers": {
