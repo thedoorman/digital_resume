@@ -9,11 +9,12 @@ function corsPost() {
     "cache-control": "no-cache",
 
   },
+  "async": true,
   "crossDomain": true,
   "url": "https://ttzisvgb7j.execute-api.us-east-1.amazonaws.com/prod/contactMe?name="+name+"&email="+email+"&message="+message,
   "data": "",
   "method": "POST",
-}
+};
 console.log("Settings: " + 
 " Async: " + settings.async +
 " Crossdomain: " + settings.crossDomain +
