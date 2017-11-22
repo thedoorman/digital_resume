@@ -9,8 +9,8 @@ function corsPost() {
   "data": "name="+name+"&email="+email+"&message="+message,
   "method": "POST",
   "headers": {
-    "access-control-allow-origin": "*",
-    "access-control-allowheaders": "Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Headers": "Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token",
   }
 }
 console.log("Settings: " + 
