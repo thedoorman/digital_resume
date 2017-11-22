@@ -1,5 +1,5 @@
 console.log('INFO: Setting the createCorsRequest!')
-var createCORSRequest = function(method, url) {
+function createCORSRequest(method, url) {
     console.log("INFO: Sending POST request");
  
     var xhr = new XMLHttpRequest();
@@ -15,8 +15,9 @@ var createCORSRequest = function(method, url) {
         xhr = null;
     }
     return xhr;
-    };
+};
  
+function makeCall(){
     console.log('INFO: Grabbing parameters!');
 
     var name = document.getElementsByName("name")[0].value;
@@ -41,4 +42,4 @@ var createCORSRequest = function(method, url) {
         };
         
         xhr.send();
-  
+};
