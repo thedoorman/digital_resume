@@ -3,8 +3,8 @@ function corsPost() {
   var email = document.getElementsByName("email")[0].value;
   var message = document.getElementsByName("message")[0].value;
   var settings = {
-  "async": true,
-  "crossDomain": false,
+  "async": false,
+  "crossDomain": true,
   "url": "https://ttzisvgb7j.execute-api.us-east-1.amazonaws.com/prod/contactMe?",
   "data": "name="+name+"&email="+email+"&message="+message,
   "method": "POST",
