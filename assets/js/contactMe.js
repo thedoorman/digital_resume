@@ -32,3 +32,23 @@ $.ajax(settings).done(function (response) {
 });
   location.reload();
 }
+
+function post() {
+  var data = null;
+
+  var xhr = new XMLHttpRequest();
+  xhr.withCredentials = true;
+
+  xhr.addEventListener("readystatechange", function () {
+  if (this.readyState === 4) {
+      console.log(this.responseText);
+  }
+  });
+
+  xhr.open("POST", "https://ttzisvgb7j.execute-api.us-east-1.amazonaws.com/prod/contactMe?name=Jesse%20Clark&email=yourmom%40gmail.com&message=How%20are%20you%20doing%20you%20idiot!%3F");
+  xhr.setRequestHeader("cache-control", "no-cache");
+  xhr.setRequestHeader("access-control-allow-origin", "*");
+  xhr.setRequestHeader("access-control-allowheaders", "Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token");
+
+  xhr.send(data);
+}
