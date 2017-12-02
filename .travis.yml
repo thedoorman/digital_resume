@@ -1,4 +1,3 @@
-language: node_js
 deploy:
   # Control deployment by setting a value for `on`. Setting the `branch`
   # option to `master` means Travis will only attempt a deployment on
