@@ -1,6 +1,14 @@
+language: node_js
 deploy:
-  provider: s3
-  access_key_id: $access_key_id
-  secret_access_key: $secret_access_key
-  bucket: "jesseclark.io"
-  region: "us-east-1"
+  # Control deployment by setting a value for `on`. Setting the `branch`
+  # option to `master` means Travis will only attempt a deployment on
+  # builds of your repo's master branch (e.g., after you merge a PR).
+  on:
+    branch: master
+    provider: s3
+    # You can refer to environment variables from Travis repo settings!
+    access_key_id: $AWS_ACCESS_KEY_ID
+    secret_access_key: $AWS_SECRET_ACCESS_KEY
+    # Name of the S3 bucket to which your site should be uploaded.
+    bucket: "jesseclark.io"
+    region: "us-east-1"
