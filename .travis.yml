@@ -10,6 +10,6 @@ on:
   access_key_id: $AWS_ACCESS_KEY_ID
   secret_access_key: $AWS_SECRET_ACCESS_KEY
   # Name of the S3 bucket to which your site should be uploaded.
-  bucket: "jesseclark.io"
-  region: "us-east-1"
+  bucket: jesseclark.io
+  region: us-east-1
   skip_cleanup: true
