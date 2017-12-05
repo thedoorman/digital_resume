@@ -11,3 +11,4 @@ deploy:
     # Name of the S3 bucket to which your site should be uploaded.
     bucket: jesseclark.io
     region: us-east-1
+    skip_cleanup: true
