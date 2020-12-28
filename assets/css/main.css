@@ -1091,7 +1091,7 @@
 			-webkit-transition: -webkit-transform 0.325s ease-in-out, -webkit-filter 0.325s ease-in-out;
 			-ms-transition: -ms-transform 0.325s ease-in-out, -ms-filter 0.325s ease-in-out;
 			transition: transform 0.325s ease-in-out, filter 0.325s ease-in-out;
-			background-image: url("../../images/tetris.jpg");
+			background-image: url("../../images/hd-3816045_1920.jpg");
 			background-position: center;
 			background-size: cover;
 			background-repeat: no-repeat;
@@ -1110,7 +1110,7 @@
 		}
 
 		body.is-loading #bg:before {
-			background-color: #000000;
+			background-color: rgb(110, 6, 151);
 		}
 
 /* Wrapper */
@@ -1479,7 +1479,7 @@
 			position: relative;
 			width: 40rem;
 			max-width: 100%;
-			background-color: rgba(27, 31, 34, 0.85);
+			background-color:rgb(110, 6, 151);
 			border-radius: 4px;
 			opacity: 0;
 		}
@@ -1489,7 +1489,7 @@
 				-webkit-transform: translateY(0);
 				-ms-transform: translateY(0);
 				transform: translateY(0);
-				opacity: 1;
+				opacity: .7;
 			}
 
 			#main article .close {
