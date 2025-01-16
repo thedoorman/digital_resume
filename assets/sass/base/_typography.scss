@@ -28,6 +28,9 @@
 		font-weight: _font(weight);
 		font-size: 1rem;
 		line-height: 1.65;
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+		text-rendering: optimizeLegibility;
 	}
 
 	a {
@@ -79,6 +82,18 @@
 			width: max-content;
 			padding-bottom: 0.5rem;
 			margin: 0 0 (_size(element-margin) * 1) 0;
+		}
+
+		background: linear-gradient(45deg, #fff, #e0e0e0);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-size: 200% auto;
+		animation: textShine 3s ease infinite;
+	}
+
+	@keyframes textShine {
+		to {
+			background-position: 200% center;
 		}
 	}
 
@@ -180,4 +195,24 @@
 
 	.align-right {
 		text-align: right;
+	}
+
+	a:not(.button) {
+		position: relative;
+		
+		&:after {
+			content: '';
+			position: absolute;
+			width: 100%;
+			height: 1px;
+			bottom: -2px;
+			left: 0;
+			background: linear-gradient(90deg, transparent, #fff, transparent);
+			transform: scaleX(0);
+			transition: transform 0.3s ease;
+		}
+		
+		&:hover:after {
+			transform: scaleX(1);
+		}
 	}

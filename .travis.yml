@@ -1,14 +1,20 @@
 language: node_js
-# Control deployment by setting a value for `on`. Setting the `branch`
-# option to `master` means Travis will only attempt a deployment on
-# builds of your repo's master branch (e.g., after you merge a PR).
+node_js:
+  - "16"
+
+cache:
+  directories:
+    - node_modules
+
+script:
+  - echo "Deploying to GitHub Pages..."
+
 deploy:
-    branch: master
-    provider: s3
-    # You can refer to environment variables from Travis repo settings!
-    access_key_id: $AWS_ACCESS_KEY_ID
-    secret_access_key: $AWS_SECRET_ACCESS_KEY
-    # Name of the S3 bucket to which your site should be uploaded.
-    bucket: jesseclark.io
-    region: us-east-1
-    skip_cleanup: true
+  provider: pages
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN
+  keep_history: true
+  on:
+    branch: main
+  local_dir: .
+  fqdn: jesseclark.io

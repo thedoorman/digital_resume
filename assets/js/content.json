@@ -1,0 +1,110 @@
+{
+  "header": {
+    "title": "Jesse Clark",
+    "tagline": "Product Leader & Tech Innovator",
+    "subtitle": "Building high-performing teams and delivering exceptional user experiences"
+  },
+  "sections": {
+    "hero": {
+      "cta": {
+        "primary": {
+          "text": "View My Work",
+          "link": "#work"
+        },
+        "secondary": {
+          "text": "Get in Touch",
+          "link": "#contact"
+        }
+      }
+    },
+    "about": {
+      "title": "Player Stats",
+      "content": [
+        {
+          "type": "intro",
+          "text": "Level 99 Product Leader with over a decade of experience building and scaling innovative software products. Specializing in user-centered experiences that delight customers and drive business results."
+        },
+        {
+          "type": "expertise",
+          "title": "Main Quests Completed",
+          "items": [
+            "Led GameStop's search platform optimization (+40% relevancy)",
+            "Architected cross-platform digital experiences at Target",
+            "Launched innovative fintech solutions at Capital One"
+          ]
+        },
+        {
+          "type": "background",
+          "title": "Origin Story",
+          "text": "Started coding journey with QBasic in Western Massachusetts, leveled up with Computer Science at UMass Amherst, gained rare items through GE's Leadership Program, and acquired MBA power-up from UNC Chapel Hill."
+        },
+        {
+          "type": "skills",
+          "title": "Character Skills",
+          "categories": [
+            {
+              "name": "Leadership",
+              "level": 95,
+              "skills": ["Team Building", "Product Strategy", "Agile Leadership"]
+            },
+            {
+              "name": "Technical",
+              "level": 90,
+              "skills": ["System Architecture", "Search Optimization", "UX Design"]
+            },
+            {
+              "name": "Business",
+              "level": 88,
+              "skills": ["Strategic Planning", "Data Analysis", "Stakeholder Management"]
+            }
+          ]
+        }
+      ],
+      "sideQuests": {
+        "title": "Side Quests",
+        "content": "Currently serving as Chair of Deep Run High School's CIT Advisory board, mentoring future tech leaders and contributing to STEM education initiatives."
+      }
+    },
+    "work": {
+      "title": "Quest Log",
+      "description": "A chronicle of epic missions and achievements",
+      "projects": [
+        {
+          "title": "GameStop Search Revolution",
+          "role": "Product Lead / Tech Architect",
+          "level": 80,
+          "duration": "2021-2023",
+          "type": "Legendary Quest",
+          "achievements": [
+            "+40% Search Relevancy",
+            "+25% Conversion Rate",
+            "-60% Search Latency"
+          ],
+          "description": "Led the complete overhaul of GameStop's search and discovery platform, enhancing the digital shopping experience for millions of gamers."
+        },
+        {
+          "title": "Digital Transformation Saga",
+          "role": "Technical Product Manager",
+          "level": 75,
+          "duration": "2019-2021",
+          "type": "Epic Quest",
+          "achievements": [
+            "Modernized Legacy Systems",
+            "Implemented Agile Framework",
+            "Launched 3 Major Products"
+          ],
+          "description": "Orchestrated digital transformation initiatives that revolutionized internal processes and customer experiences."
+        }
+      ]
+    },
+    "contact": {
+      "title": "Join Party",
+      "subtitle": "Ready to collaborate on the next big quest?",
+      "cta": "Let's connect and explore new opportunities!",
+      "social": {
+        "linkedin": "https://linkedin.com/in/jesseclark2",
+        "github": "https://github.com/thedoorman"
+      }
+    }
+  }
+} 

@@ -3,7 +3,7 @@
 @import 'libs/mixins';
 @import 'libs/skel';
 @import 'font-awesome.min.css';
-@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300italic,600italic,300,600');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;500&family=Fira+Code:wght@400&display=swap');
 
 /*
 	Dimension by Pixelarity
@@ -26,12 +26,10 @@
 	));
 
 // Base.
-
 	@import 'base/page';
 	@import 'base/typography';
 
 // Component.
-
 	@import 'components/form';
 	@import 'components/box';
 	@import 'components/icon';
@@ -41,7 +39,6 @@
 	@import 'components/button';
 
 // Layout.
-
 	@import 'layout/bg';
 	@import 'layout/wrapper';
 	@import 'layout/header';

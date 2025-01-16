@@ -51,8 +51,16 @@
 			width: 5.5rem;
 			height: 5.5rem;
 			line-height: 5.5rem;
-			border: solid _size(border-width) _palette(border);
+			border: solid 2px rgba(255, 255, 255, 0.2);
 			border-radius: 100%;
+			transition: all 0.3s ease;
+			box-shadow: 0 0 15px rgba(110, 6, 151, 0.3);
+
+			&:hover {
+				transform: scale(1.05);
+				border-color: rgba(255, 255, 255, 0.5);
+				box-shadow: 0 0 25px rgba(110, 6, 151, 0.5);
+			}
 
 			.icon {
 				&:before {
@@ -98,12 +106,16 @@
 				margin-bottom: 0;
 				list-style: none;
 				padding-left: 0;
-				border: solid _size(border-width) _palette(border);
-				border-radius: _size(border-radius);
+				border-radius: 12px;
+				overflow: hidden;
+				background: rgba(110, 6, 151, 0.3);
+				backdrop-filter: blur(8px);
+				-webkit-backdrop-filter: blur(8px);
+				border: 1px solid rgba(255, 255, 255, 0.2);
 
 				li {
 					padding-left: 0;
-					border-left: solid _size(border-width) _palette(border);
+					border-left: solid 1px rgba(255, 255, 255, 0.2);
 
 					&:first-child {
 						border-left: 0;
@@ -119,9 +131,12 @@
 						letter-spacing: _font(letter-spacing);
 						font-size: 0.8rem;
 						border-bottom: 0;
+						transition: all 0.3s ease;
+						position: relative;
+						overflow: hidden;
 
 						&:hover {
-							background-color: _palette(border-bg);
+							background-color: rgba(255, 255, 255, 0.1);
 						}
 
 						&:active {

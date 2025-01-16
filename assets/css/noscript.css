@@ -3,10 +3,10 @@
 	pixelarity.com | hello@pixelarity.com
 	License: pixelarity.com/license
 */
-
 /* Main */
+#main article {
+  opacity: 1;
+  margin: 4rem 0 0 0;
+}
 
-	#main article {
-		opacity: 1;
-		margin: 4rem 0 0 0;
-	}
+/*# sourceMappingURL=noscript.css.map */
