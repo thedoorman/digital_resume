@@ -2,9 +2,10 @@ language: node_js
 node_js:
   - "16"
 
-# Safelist
+# Allow both main and master branches
 branches:
   only:
+    - master
     - main
 
 before_install:
@@ -14,23 +15,18 @@ before_install:
   - npm install -g serverless
 
 install:
-  - echo "Installing dependencies..."
   - npm ci
 
-cache:
-  npm: true
-  directories:
-    - node_modules
-    - ~/.npm
-
 before_script:
-  - echo "Starting deployment..."
+  - echo "Checking build status..."
+  - npm run build || true
 
 script:
-  - echo "Deploying to AWS..."
+  - echo "Starting deployment process..."
+  - serverless package
 
 deploy:
-  # Deploy static files to S3
+  # S3 Deployment
   - provider: s3
     access_key_id: $AWS_ACCESS_KEY_ID
     secret_access_key: $AWS_SECRET_ACCESS_KEY
@@ -40,20 +36,27 @@ deploy:
     local_dir: .
     acl: public-read
     on:
-      branch: main
+      all_branches: true
+      condition: $TRAVIS_BRANCH =~ ^(master|main)$ && $TRAVIS_PULL_REQUEST = false
 
-  # Deploy API Gateway/Lambda via Serverless
+  # API Deployment
   - provider: script
     script: serverless deploy
     skip_cleanup: true
     on:
-      branch: main
+      all_branches: true
+      condition: $TRAVIS_BRANCH =~ ^(master|main)$ && $TRAVIS_PULL_REQUEST = false
 
-after_deploy:
-  - echo "Deployed successfully to jesseclark.io"
+after_success:
+  - echo "Build completed successfully"
+
+after_failure:
+  - echo "Build failed"
 
 notifications:
   email:
+    recipients:
+      - jesseclark@duck.com
     on_success: change
     on_failure: always
 
