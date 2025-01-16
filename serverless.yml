@@ -1,0 +1,33 @@
+service: jesseclark-io
+
+provider:
+  name: aws
+  runtime: nodejs16.x
+  region: us-east-1
+  stage: ${opt:stage, 'prod'}
+  
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - ses:SendEmail
+            - ses:SendRawEmail
+          Resource: "*"
+
+functions:
+  contactMe:
+    handler: api/contact.handler
+    events:
+      - http:
+          path: contactMe
+          method: post
+          cors: true
+
+custom:
+  # Add your custom domain configuration
+  customDomain:
+    domainName: api.jesseclark.io
+    basePath: ''
+    stage: ${self:provider.stage}
+    createRoute53Record: true 

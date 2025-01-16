@@ -8,47 +8,46 @@ branches:
     - main
 
 before_install:
-  # Remove any existing .npmrc file
   - rm -f .npmrc
-  # Clear npm cache
   - npm cache clean --force
-  # Use latest npm
   - npm install -g npm@latest
+  - npm install -g serverless
 
 install:
-  # Skip npm install since we don't need dependencies
-  - echo "Skipping npm install"
+  - echo "Installing dependencies..."
+  - npm ci
 
-# Cache dependencies
 cache:
-  npm: false
+  npm: true
   directories:
     - node_modules
+    - ~/.npm
 
 before_script:
   - echo "Starting deployment..."
 
 script:
-  - echo "No build required for static site"
-
-before_deploy:
-  - chmod +x ./*
-  - echo "jesseclark.io" > CNAME
+  - echo "Deploying to AWS..."
 
 deploy:
-  provider: pages
-  strategy: git
-  cleanup: false
-  token: $GITHUB_TOKEN
-  keep_history: true
-  target_branch: gh-pages
-  on:
-    branch: main
-  local_dir: .
-  edge: true
-  fqdn: jesseclark.io
-  allow_failure: false
-  pull_requests: false
+  # Deploy static files to S3
+  - provider: s3
+    access_key_id: $AWS_ACCESS_KEY_ID
+    secret_access_key: $AWS_SECRET_ACCESS_KEY
+    bucket: jesseclark.io
+    region: us-east-1
+    skip_cleanup: true
+    local_dir: .
+    acl: public-read
+    on:
+      branch: main
+
+  # Deploy API Gateway/Lambda via Serverless
+  - provider: script
+    script: serverless deploy
+    skip_cleanup: true
+    on:
+      branch: main
 
 after_deploy:
   - echo "Deployed successfully to jesseclark.io"
@@ -57,3 +56,7 @@ notifications:
   email:
     on_success: change
     on_failure: always
+
+env:
+  global:
+    - AWS_DEFAULT_REGION=us-east-1
