@@ -2,19 +2,58 @@ language: node_js
 node_js:
   - "16"
 
+# Safelist
+branches:
+  only:
+    - main
+
+before_install:
+  # Remove any existing .npmrc file
+  - rm -f .npmrc
+  # Clear npm cache
+  - npm cache clean --force
+  # Use latest npm
+  - npm install -g npm@latest
+
+install:
+  # Skip npm install since we don't need dependencies
+  - echo "Skipping npm install"
+
+# Cache dependencies
 cache:
+  npm: false
   directories:
     - node_modules
 
+before_script:
+  - echo "Starting deployment..."
+
 script:
-  - echo "Deploying to GitHub Pages..."
+  - echo "No build required for static site"
+
+before_deploy:
+  - chmod +x ./*
+  - echo "jesseclark.io" > CNAME
 
 deploy:
   provider: pages
-  skip_cleanup: true
-  github_token: $GITHUB_TOKEN
+  strategy: git
+  cleanup: false
+  token: $GITHUB_TOKEN
   keep_history: true
+  target_branch: gh-pages
   on:
     branch: main
   local_dir: .
+  edge: true
   fqdn: jesseclark.io
+  allow_failure: false
+  pull_requests: false
+
+after_deploy:
+  - echo "Deployed successfully to jesseclark.io"
+
+notifications:
+  email:
+    on_success: change
+    on_failure: always
