@@ -2,6 +2,9 @@ language: node_js
 node_js:
   - "18"
 
+# Specify Ubuntu 20.04 (Focal Fossa)
+dist: focal
+
 # Allow both main and master branches
 branches:
   only:
@@ -9,8 +12,14 @@ branches:
     - main
 
 before_install:
+  # Update system packages
+  - sudo apt-get update
+  # Remove any existing npm config
   - rm -f .npmrc
+  - rm -rf ~/.npm
+  # Clear npm cache
   - npm cache clean --force
+  # Install npm and serverless
   - npm install -g npm@9.8.1
   - npm install -g serverless@3
 
