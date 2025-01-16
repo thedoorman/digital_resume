@@ -1,0 +1,28 @@
+language: node_js
+node_js:
+  - "18"
+
+dist: focal
+
+before_install:
+  - npm install -g serverless@3
+
+install:
+  - npm ci
+
+script:
+  - serverless package
+
+deploy:
+  provider: script
+  script: serverless deploy
+  skip_cleanup: true
+  on:
+    branch: main
+
+env:
+  global:
+    # API specific permissions
+    - AWS_ACCESS_KEY_ID=$API_AWS_ACCESS_KEY_ID
+    - AWS_SECRET_ACCESS_KEY=$API_AWS_SECRET_KEY
+    - AWS_DEFAULT_REGION=us-east-1 

@@ -14,49 +14,48 @@ branches:
 before_install:
   # Update system packages
   - sudo apt-get update
+  - sudo apt-get install -y jq
   # Remove any existing npm config
   - rm -f .npmrc
   - rm -rf ~/.npm
   # Clear npm cache
   - npm cache clean --force
-  # Install AWS CLI
+  # Install AWS CLI for S3/CloudFront
   - pip install --user awscli
-  # Install npm and serverless
   - npm install -g npm@9.8.1
-  - npm install -g serverless@3
+  # Configure AWS credentials
+  - aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
+  - aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
+  - aws configure set region $AWS_DEFAULT_REGION
+  # Assume deployment role
+  - |
+    CREDENTIALS=$(aws sts assume-role \
+      --role-arn $AWS_ROLE_ARN \
+      --role-session-name "TravisDeployment" \
+      --duration-seconds 900)
+  - export AWS_ACCESS_KEY_ID=$(echo $CREDENTIALS | jq -r .Credentials.AccessKeyId)
+  - export AWS_SECRET_ACCESS_KEY=$(echo $CREDENTIALS | jq -r .Credentials.SecretAccessKey)
+  - export AWS_SESSION_TOKEN=$(echo $CREDENTIALS | jq -r .Credentials.SessionToken)
 
 install:
   - npm ci
 
-before_script:
-  - echo "Checking build status..."
-  - npm run build || true
-
 script:
-  - echo "Starting deployment process..."
-  - serverless package
+  - echo "Starting static site deployment..."
 
 deploy:
-  # S3 Deployment
-  - provider: s3
-    access_key_id: $AWS_ACCESS_KEY_ID
-    secret_access_key: $AWS_SECRET_ACCESS_KEY
-    bucket: jesseclark.io
-    region: us-east-1
-    skip_cleanup: true
-    local_dir: .
-    acl: public_read
-    on:
-      all_branches: true
-      condition: $TRAVIS_BRANCH =~ ^(master|main)$ && $TRAVIS_PULL_REQUEST = false
-
-  # API Deployment
-  - provider: script
-    script: serverless deploy
-    skip_cleanup: true
-    on:
-      all_branches: true
-      condition: $TRAVIS_BRANCH =~ ^(master|main)$ && $TRAVIS_PULL_REQUEST = false
+  # S3 Deployment for static site
+  provider: s3
+  access_key_id: $AWS_ACCESS_KEY_ID
+  secret_access_key: $AWS_SECRET_ACCESS_KEY
+  bucket: jesseclark.io
+  region: us-east-1
+  skip_cleanup: true
+  local_dir: .
+  acl: public_read
+  on:
+    all_branches: true
+    condition: $TRAVIS_BRANCH =~ ^(master|main)$ && $TRAVIS_PULL_REQUEST = false
 
 after_deploy:
   # Invalidate CloudFront cache
@@ -79,5 +78,5 @@ notifications:
 env:
   global:
     - AWS_DEFAULT_REGION=us-east-1
-    # Add CloudFront configuration
     - CLOUDFRONT_DISTRIBUTION_ID=$CLOUDFRONT_DISTRIBUTION_ID
+    - AWS_ROLE_ARN=arn:aws:iam::123456789012:role/TravisDeployRole
