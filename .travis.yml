@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-  - "16"
+  - "18"
 
 # Allow both main and master branches
 branches:
@@ -11,8 +11,8 @@ branches:
 before_install:
   - rm -f .npmrc
   - npm cache clean --force
-  - npm install -g npm@8.19.4
-  - npm install -g serverless
+  - npm install -g npm@9.8.1
+  - npm install -g serverless@3
 
 install:
   - npm ci

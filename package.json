@@ -2,7 +2,12 @@
   "name": "jesseclark.io",
   "version": "1.0.0",
   "private": true,
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.8.1"
+  },
   "scripts": {
-    "start": "python3 -m http.server 8000"
+    "start": "python3 -m http.server 8000",
+    "build": "echo 'No build required'"
   }
 }
