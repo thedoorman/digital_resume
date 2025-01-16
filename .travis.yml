@@ -79,4 +79,4 @@ env:
   global:
     - AWS_DEFAULT_REGION=us-east-1
     - CLOUDFRONT_DISTRIBUTION_ID=$CLOUDFRONT_DISTRIBUTION_ID
-    - AWS_ROLE_ARN=arn:aws:iam::123456789012:role/TravisDeployRole
+    - AWS_ROLE_ARN=arn:aws:iam::500194254701:role/TravisDeployRole
