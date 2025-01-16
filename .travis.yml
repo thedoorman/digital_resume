@@ -27,6 +27,8 @@ before_install:
   - aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
   - aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
   - aws configure set region $AWS_DEFAULT_REGION
+  # Verify AWS credentials
+  - aws sts get-caller-identity
   # Assume deployment role
   - |
     CREDENTIALS=$(aws sts assume-role \
@@ -36,12 +38,24 @@ before_install:
   - export AWS_ACCESS_KEY_ID=$(echo $CREDENTIALS | jq -r .Credentials.AccessKeyId)
   - export AWS_SECRET_ACCESS_KEY=$(echo $CREDENTIALS | jq -r .Credentials.SecretAccessKey)
   - export AWS_SESSION_TOKEN=$(echo $CREDENTIALS | jq -r .Credentials.SessionToken)
+  # Verify assumed role
+  - aws sts get-caller-identity
 
 install:
   - npm ci
 
 script:
   - echo "Starting static site deployment..."
+  # Verify environment variables (will show if they exist, not their values)
+  - |
+    echo "Checking environment variables..."
+    for var in AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY AWS_DEFAULT_REGION CLOUDFRONT_DISTRIBUTION_ID GITHUB_TOKEN; do
+      if [ -z "${!var}" ]; then
+        echo "❌ $var is not set"
+      else
+        echo "✅ $var is set"
+      fi
+    done
 
 deploy:
   # S3 Deployment for static site
@@ -79,4 +93,4 @@ env:
   global:
     - AWS_DEFAULT_REGION=us-east-1
     - CLOUDFRONT_DISTRIBUTION_ID=$CLOUDFRONT_DISTRIBUTION_ID
-    - AWS_ROLE_ARN=arn:aws:iam::500194254701:role/TravisDeployRole
+    - AWS_ROLE_ARN=arn:aws:iam::500194254701:role/email-from-lambda-role
