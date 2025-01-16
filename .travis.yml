@@ -19,6 +19,8 @@ before_install:
   - rm -rf ~/.npm
   # Clear npm cache
   - npm cache clean --force
+  # Install AWS CLI
+  - pip install --user awscli
   # Install npm and serverless
   - npm install -g npm@9.8.1
   - npm install -g serverless@3
@@ -43,7 +45,7 @@ deploy:
     region: us-east-1
     skip_cleanup: true
     local_dir: .
-    acl: public-read
+    acl: public_read
     on:
       all_branches: true
       condition: $TRAVIS_BRANCH =~ ^(master|main)$ && $TRAVIS_PULL_REQUEST = false
@@ -55,6 +57,11 @@ deploy:
     on:
       all_branches: true
       condition: $TRAVIS_BRANCH =~ ^(master|main)$ && $TRAVIS_PULL_REQUEST = false
+
+after_deploy:
+  # Invalidate CloudFront cache
+  - aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_DISTRIBUTION_ID --paths "/*"
+  - echo "CloudFront cache invalidated"
 
 after_success:
   - echo "Build completed successfully"
@@ -72,3 +79,5 @@ notifications:
 env:
   global:
     - AWS_DEFAULT_REGION=us-east-1
+    # Add CloudFront configuration
+    - CLOUDFRONT_DISTRIBUTION_ID=$CLOUDFRONT_DISTRIBUTION_ID
