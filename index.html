@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+	<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>jesseclark.io | Product Leader</title>
@@ -8,8 +8,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-</head>
-<body>
+	</head>
+	<body>
     <div class="cursor"></div>
     <div class="bg-gradient"></div>
     <div class="bg-grid"></div>
@@ -18,7 +18,11 @@
         <div class="header-container container">
             <a href="/" class="logo">jesseclark.io</a>
             <button class="menu-button" aria-label="Toggle menu" aria-expanded="false">
-                <span class="menu-icon"></span>
+                <div class="menu-icon">
+                    <span class="menu-line"></span>
+                    <span class="menu-line"></span>
+                    <span class="menu-line"></span>
+						</div>
             </button>
             <nav class="main-nav">
                 <ul class="nav-list">
@@ -26,10 +30,10 @@
                     <li><a href="#portfolio" class="button button-secondary">PORTFOLIO</a></li>
                     <li><a href="#resume" class="button button-secondary">RESUME</a></li>
                     <li><a href="#connect" class="button button-secondary">CONNECT</a></li>
-                </ul>
-            </nav>
+							</ul>
+						</nav>
         </div>
-    </header>
+					</header>
 
     <main>
         <section class="hero container">
@@ -86,8 +90,14 @@
 
 						  <!-- Target -->
 						  <a href="https://www.target.com/s?searchTerm=table" class="carousel-slide" target="_blank">
-                            <div class="preview-image">
-                                <img src="" alt="MindLabs" loading="lazy">
+                            <div class="preview-image loading">
+                                <img 
+                                    src="assets/images/target-search.svg" 
+                                    alt="Target Search Experience" 
+                                    loading="lazy"
+                                    onerror="this.classList.add('error')"
+                                    onload="this.parentElement.classList.remove('loading')"
+                                >
                             </div>
                             <div class="preview-content">
                                 <h3>Target Discovery Experience</h3>
@@ -97,7 +107,7 @@
                         <!-- GhostRed -->
                         <a href="https://x.com/GEGhostRed/status/900824132136448005" class="carousel-slide" target="_blank">
                             <div class="preview-image">
-                                <img src="" alt="GhostRed Preview" loading="lazy">
+                                <img src="assets/images/ghostred.jpg" alt="GhostRed Game" loading="lazy">
                             </div>
                             <div class="preview-content">
                                 <h3>GhostRed</h3>
@@ -108,7 +118,7 @@
                         <!-- MindLabs -->
                         <a href="https://exploremindlabs.com/" class="carousel-slide" target="_blank">
                             <div class="preview-image">
-                                <img src="" alt="MindLabs" loading="lazy">
+                                <img src="assets/images/mindlabs.jpg" alt="MindLabs AR Experience" loading="lazy">
                             </div>
                             <div class="preview-content">
                                 <h3>MindLabs Collaborative Play</h3>
@@ -118,17 +128,20 @@
 
                         <!-- GameStop Search -->
                         <a href="https://www.gamestop.com/search/?q=mario+kart" class="carousel-slide" target="_blank">
-                            <div class="preview-image">
-                                <img src="assets/images/mario-kart.jpg" alt="Mario Kart" />
+                            <div class="preview-image loading">
+                                <img 
+                                    src="assets/images/gamestop-search.png" 
+                                    alt="GameStop Search" 
+                                    loading="lazy"
+                                    onerror="this.classList.add('error')"
+                                    onload="this.parentElement.classList.remove('loading')"
+                                >
                             </div>
                             <div class="preview-content">
                                 <h3>GameStop Search</h3>
                                 <p>Built in-house search and inventory platforms from the ground up followed by holistic experience redeisgn</p>
                             </div>
                         </a>
-                    </div>
-                    <div class="carousel-progress">
-                        <div class="progress-bar"></div>
                     </div>
                 </div>
                 <div class="carousel-navigation">
@@ -186,7 +199,7 @@
                             <li>Directed a 15-person team to deploy Target's first generative AI application in search, providing guided experiences for 1% of annual search volume</li>
                             <li>Led implementation of context-aware guest experience with server-driven UI architecture, projecting $2M+ annual revenue increase</li>
                             <li>Launched Target Circle Deals filtering capability, driving millions in monthly attributable revenue</li>
-                        </ul>
+									</ul>
                     </div>
                 </div>
 
@@ -217,7 +230,7 @@
                             <li>Reduced page load times by 25% while serving millions of monthly sessions</li>
                         </ul>
                     </div>
-                </div>
+									</div>
 
                 <!-- Capital One -->
                 <div class="experience-card">
@@ -225,9 +238,9 @@
                         <div class="company-info">
                             <h3>Capital One</h3>
                             <span class="location">Richmond, VA</span>
-                        </div>
+									</div>
                         <span class="duration">2018 - 2021</span>
-                    </div>
+									</div>
                     <div class="role">
                         <h4>Group Product Manager, Customer Identity Platform</h4>
                         <p class="role-description">
@@ -236,7 +249,7 @@
                         <ul class="achievements">
                             <li>Led 25-person cross-functional team to build identity verification workflows for William Sonoma co-branded credit card launch</li>
                             <li>Established 100-member cross-business platform community and newsletter, driving partnership and reuse across organization</li>
-                        </ul>
+									</ul>
                     </div>
                     <div class="role">
                         <h4>Senior Manager, Product Management, Architecture and Enterprise Search</h4>
@@ -247,9 +260,9 @@
                             <li>Released software inventory and enterprise search application, quantifying technology modernization progress</li>
                             <li>Visualized technology modernization data for executive decision-making on software lifecycle management</li>
                             <li>Co-founded 1000-member code reuse community improving software discovery across divisions</li>
-                        </ul>
+								</ul>
                     </div>
-                </div>
+				</div>
 
                 <!-- GE Digital -->
                 <div class="experience-card">
@@ -280,9 +293,9 @@
                         <h4>Lead Analyst, Data Loss Prevention</h4>
                         <ul class="achievements">
                             <li>Led 20-member security team to implement data protection controls, eliminating critical IP loss vectors</li>
-                        </ul>
+						</ul>
                     </div>
-                </div>
+			</div>
 
                 <!-- Additional Experience -->
                 <div class="experience-card">
@@ -309,7 +322,7 @@
                         <span class="position">Chair of Advisory Board, Center for Information Technology</span>
                         <ul class="achievements">
                             <li>Led program enhancement through curriculum development and student internship connections</li>
-                        </ul>
+			</ul>
                     </div>
                 </div>
             </div>
@@ -387,5 +400,5 @@
 
     <script type="module" src="assets/js/main.js"></script>
     <script src="assets/js/contact.js"></script>
-</body>
+	</body>
 </html>

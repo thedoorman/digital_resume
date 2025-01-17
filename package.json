@@ -9,5 +9,8 @@
   "scripts": {
     "start": "python3 -m http.server 8000",
     "build": "echo 'No build required'"
+  },
+  "devDependencies": {
+    "browser-sync": "^3.0.3"
   }
 }
