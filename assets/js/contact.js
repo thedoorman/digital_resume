@@ -8,6 +8,7 @@ async function handleContactForm(event) {
     try {
         submitButton.disabled = true;
         statusMessage.textContent = 'Sending...';
+        statusMessage.className = 'status-message';
         
         const data = {
             name: sanitizeInput(form.name.value),
@@ -29,10 +30,12 @@ async function handleContactForm(event) {
         if (!response.ok) throw new Error(result.error || 'Failed to send message');
         
         statusMessage.textContent = 'Message sent successfully!';
+        statusMessage.classList.add('success');
         form.reset();
     } catch (error) {
         console.error('Error sending message:', error);
         statusMessage.textContent = error.message || 'Failed to send message. Please try again later.';
+        statusMessage.classList.add('error');
     } finally {
         submitButton.disabled = false;
     }
