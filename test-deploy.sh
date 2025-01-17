@@ -79,6 +79,19 @@ if [ $? -eq 0 ]; then
         --distribution-id $CLOUDFRONT_DISTRIBUTION_ID \
         --paths "/index.html" "/assets/*"
 
+    # Test clean deployment
+    echo "Testing clean deployment..."
+    aws s3 sync . s3://jesseclark.io \
+        --dryrun \
+        --delete \
+        --acl public-read \
+        --exclude ".git/*" \
+        --exclude "node_modules/*" \
+        --exclude ".env" \
+        --exclude ".travis.yml" \
+        --exclude "test-deploy.sh" \
+        --exclude "backup-*/*"
+
     echo "✅ All tests passed!"
 else
     echo "❌ Failed to assume role"
