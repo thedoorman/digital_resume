@@ -29,17 +29,29 @@ before_install:
   - aws configure set region $AWS_DEFAULT_REGION
   # Verify AWS credentials
   - aws sts get-caller-identity
-  # Assume deployment role
+  # Verify AWS credentials and S3 access
+  - echo "Testing initial AWS credentials..."
+  - aws sts get-caller-identity
+  - echo "Testing S3 access..."
+  - aws s3 ls s3://jesseclark.io || echo "Failed to list bucket"
+  
+  # Assume role with debug info
+  - echo "Attempting to assume role..."
   - |
     CREDENTIALS=$(aws sts assume-role \
       --role-arn $AWS_ROLE_ARN \
       --role-session-name "TravisDeployment" \
       --duration-seconds 900)
+  - echo "Role assumption successful, setting new credentials..."
   - export AWS_ACCESS_KEY_ID=$(echo $CREDENTIALS | jq -r .Credentials.AccessKeyId)
   - export AWS_SECRET_ACCESS_KEY=$(echo $CREDENTIALS | jq -r .Credentials.SecretAccessKey)
   - export AWS_SESSION_TOKEN=$(echo $CREDENTIALS | jq -r .Credentials.SessionToken)
-  # Verify assumed role
+  
+  # Verify assumed role credentials
+  - echo "Testing assumed role credentials..."
   - aws sts get-caller-identity
+  - echo "Testing S3 access with assumed role..."
+  - aws s3 ls s3://jesseclark.io || echo "Failed to list bucket with assumed role"
 
 install:
   - npm ci
@@ -58,15 +70,19 @@ script:
     done
 
 deploy:
-  # S3 Deployment for static site
   provider: s3
+  edge: true
   access_key_id: $AWS_ACCESS_KEY_ID
   secret_access_key: $AWS_SECRET_ACCESS_KEY
-  bucket: jesseclark.io
-  region: us-east-1
+  session_token: $AWS_SESSION_TOKEN
+  bucket: "jesseclark.io"
+  region: "us-east-1"
   skip_cleanup: true
   local_dir: .
   acl: public_read
+  verbose: true
+  detect_encoding: true
+  cache_control: "max-age=31536000"
   on:
     all_branches: true
     condition: $TRAVIS_BRANCH =~ ^(master|main)$ && $TRAVIS_PULL_REQUEST = false
@@ -92,5 +108,5 @@ notifications:
 env:
   global:
     - AWS_DEFAULT_REGION=us-east-1
-    - CLOUDFRONT_DISTRIBUTION_ID=$CLOUDFRONT_DISTRIBUTION_ID
+    - CLOUDFRONT_DISTRIBUTION_ID=E1JFX2AF0IL1RM
     - AWS_ROLE_ARN=arn:aws:iam::500194254701:role/email-from-lambda-role
