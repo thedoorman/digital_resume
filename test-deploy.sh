@@ -92,6 +92,10 @@ if [ $? -eq 0 ]; then
         --exclude "test-deploy.sh" \
         --exclude "backup-*/*"
 
+    # Test API connectivity
+    echo "Testing API connectivity..."
+    curl -I https://api.jesseclark.io/contactMe
+
     echo "✅ All tests passed!"
 else
     echo "❌ Failed to assume role"

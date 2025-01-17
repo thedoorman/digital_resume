@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Contact Form</title>
+</head>
+<body>
+    <form id="test-form">
+        <input type="text" name="name" value="Test User">
+        <input type="email" name="email" value="test@example.com">
+        <textarea name="message">Test message</textarea>
+        <button type="submit">Send</button>
+    </form>
+    <div id="result"></div>
+
+    <script>
+        document.getElementById('test-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const form = e.target;
+            const result = document.getElementById('result');
+            
+            try {
+                const response = await fetch('https://api.jesseclark.io/contactMe', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json; charset=utf-8',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        name: form.name.value,
+                        email: form.email.value,
+                        message: form.message.value
+                    })
+                });
+                
+                const data = await response.json();
+                result.textContent = JSON.stringify(data, null, 2);
+            } catch (error) {
+                result.textContent = error.message;
+            }
+        });
+    </script>
+</body>
+</html> 

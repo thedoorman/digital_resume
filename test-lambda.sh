@@ -1,22 +1,30 @@
 #!/bin/bash
 
-echo "Testing connectivity..."
+# Load environment variables
+source .env
 
-# Test known working endpoint first
-echo -e "\nTesting connectivity to api.github.com:"
-curl -X GET https://api.github.com -I
+# Configure AWS CLI
+aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
+aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
+aws configure set region $AWS_DEFAULT_REGION
 
-# Test our API endpoint
-echo -e "\nTesting our API endpoint:"
-curl -X OPTIONS https://api.jesseclark.dev/contactMe \
-  --connect-timeout 5 \
-  -v
+# Test Lambda directly with proper event structure
+echo "Testing Lambda function..."
+aws lambda invoke \
+    --function-name contactMe \
+    --payload '{
+        "body": "{\"name\":\"Test User\",\"email\":\"test@example.com\",\"message\":\"Test Message\"}",
+        "requestContext": {
+            "http": {
+                "method": "POST",
+                "path": "/contactMe"
+            }
+        },
+        "headers": {
+            "content-type": "application/json"
+        }
+    }' \
+    response.json
 
-# Test with IP directly (if DNS resolves)
-echo -e "\nTesting with IP directly:"
-curl -X OPTIONS https://149.28.120.133/contactMe \
-  -H "Host: api.jesseclark.dev" \
-  --connect-timeout 5 \
-  -v
-
-echo -e "\nTests completed!" 
+echo "Lambda Response:"
+cat response.json 

@@ -1,13 +1,22 @@
 #!/bin/bash
 
-API_URL="https://api.jesseclark.dev/contactMe"
+API_URL="https://api.jesseclark.io/contactMe"
 TIMEOUT=10
 
 echo "🔍 Testing API Endpoints..."
 
 # 1. Test DNS Resolution
 echo -e "\n1. Testing DNS Resolution:"
-host api.jesseclark.dev
+host api.jesseclark.io
+
+# 1b. Testing API Gateway Domain:
+echo -e "\n1b. Testing API Gateway Domain:"
+aws apigateway get-domain-names
+
+# 1c. Testing API Gateway Endpoint:
+echo -e "\n1c. Testing API Gateway Endpoint:"
+ENDPOINT=$(aws apigateway get-rest-apis --query 'items[?name==`ContactAPI`].id' --output text)
+echo "API Gateway endpoint: ${ENDPOINT}.execute-api.us-east-1.amazonaws.com"
 
 # 2. Test Basic Connectivity
 echo -e "\n2. Testing Basic Connectivity:"

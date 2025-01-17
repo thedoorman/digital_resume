@@ -267,47 +267,41 @@ async function fetchGameDetails(url) {
 function initMenu() {
 	const menuButton = document.querySelector('.menu-button');
 	const mainNav = document.querySelector('.main-nav');
-	const navLinks = document.querySelectorAll('.nav-list a');
+	
+	if (!menuButton || !mainNav) return;
 
-	if (menuButton && mainNav) {
-		// Toggle menu
-		menuButton.addEventListener('click', (e) => {
-			e.stopPropagation();
-			mainNav.classList.toggle('active');
-			menuButton.setAttribute('aria-expanded', 
-				mainNav.classList.contains('active').toString()
-			);
-			document.body.style.overflow = mainNav.classList.contains('active') ? 'hidden' : '';
-		});
-
-		// Close menu when clicking links
-		navLinks.forEach(link => {
-			link.addEventListener('click', () => {
-				mainNav.classList.remove('active');
-				menuButton.setAttribute('aria-expanded', 'false');
-				document.body.style.overflow = '';
-			});
-		});
-
-		// Close menu when clicking outside
-		document.addEventListener('click', (e) => {
-			if (mainNav.classList.contains('active') && !e.target.closest('.header')) {
-				mainNav.classList.remove('active');
-				menuButton.setAttribute('aria-expanded', 'false');
-				document.body.style.overflow = '';
-			}
-		});
-
-		// Handle escape key
-		document.addEventListener('keydown', (e) => {
-			if (e.key === 'Escape' && mainNav.classList.contains('active')) {
-				mainNav.classList.remove('active');
-				menuButton.setAttribute('aria-expanded', 'false');
-				document.body.style.overflow = '';
-			}
-		});
+	function toggleMenu(show) {
+		const isExpanded = show === undefined ? !mainNav.classList.contains('active') : show;
+		mainNav.classList.toggle('active', isExpanded);
+		menuButton.setAttribute('aria-expanded', isExpanded);
+		document.body.style.overflow = isExpanded ? 'hidden' : '';
 	}
+
+	// Toggle menu on button click
+	menuButton.addEventListener('click', (e) => {
+		e.stopPropagation();
+		toggleMenu();
+	});
+
+	// Close menu when clicking links
+	mainNav.querySelectorAll('a').forEach(link => {
+		link.addEventListener('click', () => toggleMenu(false));
+	});
+
+	// Close menu when clicking outside
+	document.addEventListener('click', (e) => {
+		if (mainNav.classList.contains('active') && !e.target.closest('.header')) {
+			toggleMenu(false);
+		}
+	});
+
+	// Close menu on escape key
+	document.addEventListener('keydown', (e) => {
+		if (e.key === 'Escape' && mainNav.classList.contains('active')) {
+			toggleMenu(false);
+		}
+	});
 }
 
-// Initialize when DOM is loaded
+// Initialize menu when DOM is loaded
 document.addEventListener('DOMContentLoaded', initMenu);

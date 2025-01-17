@@ -9,26 +9,30 @@ async function handleContactForm(event) {
         submitButton.disabled = true;
         statusMessage.textContent = 'Sending...';
         
-        const response = await fetch('https://api.jesseclark.dev/contactMe', {
+        const data = {
+            name: sanitizeInput(form.name.value),
+            email: sanitizeInput(form.email.value),
+            message: sanitizeInput(form.message.value)
+        };
+        
+        const response = await fetch('https://api.jesseclark.io/contactMe', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
+                'Content-Type': 'application/json; charset=utf-8',
+                'Accept': 'application/json'
             },
-            body: JSON.stringify({
-                name: form.name.value,
-                email: form.email.value,
-                message: form.message.value
-            })
+            body: JSON.stringify(data)
         });
         
-        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-        
         const result = await response.json();
+        
+        if (!response.ok) throw new Error(result.error || 'Failed to send message');
+        
         statusMessage.textContent = 'Message sent successfully!';
         form.reset();
     } catch (error) {
         console.error('Error sending message:', error);
-        statusMessage.textContent = 'Failed to send message. Please try again later.';
+        statusMessage.textContent = error.message || 'Failed to send message. Please try again later.';
     } finally {
         submitButton.disabled = false;
     }
