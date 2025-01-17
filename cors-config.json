@@ -1,0 +1,6 @@
+{
+    "allowMethods": ["OPTIONS", "POST"],
+    "allowHeaders": ["Content-Type"],
+    "allowOrigin": "https://jesseclark.io",
+    "maxAge": 300
+} 

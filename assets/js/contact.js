@@ -3,48 +3,34 @@ async function handleContactForm(event) {
     
     const form = event.target;
     const submitButton = form.querySelector('button[type="submit"]');
-    const originalButtonText = submitButton.textContent;
+    const statusMessage = document.getElementById('contact-status');
     
     try {
         submitButton.disabled = true;
-        submitButton.textContent = 'Sending...';
+        statusMessage.textContent = 'Sending...';
         
-        // Sanitize form data
-        const formData = new FormData(form);
-        const data = {
-            name: sanitizeInput(formData.get('name')),
-            email: sanitizeInput(formData.get('email')),
-            message: sanitizeInput(formData.get('message')),
-            subject: 'New Contact Form Submission from Portfolio',
-            to: 'jesseclark@duck.com'
-        };
-
         const response = await fetch('https://api.jesseclark.dev/contactMe', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
             },
-            body: JSON.stringify(data)
+            body: JSON.stringify({
+                name: form.name.value,
+                email: form.email.value,
+                message: form.message.value
+            })
         });
-
-        if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(errorData.message || 'Failed to send message');
-        }
-
-        form.reset();
-        showNotification('Message sent successfully! I\'ll get back to you soon.', 'success');
         
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+        
+        const result = await response.json();
+        statusMessage.textContent = 'Message sent successfully!';
+        form.reset();
     } catch (error) {
         console.error('Error sending message:', error);
-        showNotification(
-            'Unable to send message. Please try reaching out via email directly.',
-            'error'
-        );
-        
+        statusMessage.textContent = 'Failed to send message. Please try again later.';
     } finally {
         submitButton.disabled = false;
-        submitButton.textContent = originalButtonText;
     }
 }
 
@@ -103,9 +89,32 @@ function showNotification(message, type = 'success') {
     }, 5000);
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+// Add this test function
+async function testLambdaConnection() {
+    try {
+        const response = await fetch('https://api.jesseclark.dev/contactMe', {
+            method: 'OPTIONS'
+        });
+        console.log('Lambda connection test:', response.status);
+        return response.ok;
+    } catch (error) {
+        console.error('Lambda connection test failed:', error);
+        return false;
+    }
+}
+
+document.addEventListener('DOMContentLoaded', async () => {
     const form = document.getElementById('contact-form');
+    const statusMessage = document.getElementById('contact-status');
+    
     if (form) {
+        // Test Lambda connection
+        const isConnected = await testLambdaConnection();
+        if (!isConnected) {
+            statusMessage.textContent = 'Contact form temporarily unavailable';
+            statusMessage.style.color = 'red';
+        }
+        
         form.addEventListener('submit', handleContactForm);
     }
 }); 

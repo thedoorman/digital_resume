@@ -41,3 +41,40 @@
 		border-bg:					rgba(255,255,255,0.1),
 		border-bg-alt:				rgba(255,255,255,0.2)
 	);
+
+:root {
+    // Breakpoints
+    --bp-small: 576px;
+    --bp-medium: 768px;
+    --bp-large: 992px;
+    --bp-xlarge: 1200px;
+    
+    // Container widths
+    --max-width: 1140px;
+    
+    // Spacing
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 1rem;
+    --spacing-md: 2rem;
+    --spacing-lg: 4rem;
+    --spacing-xl: 8rem;
+    
+    // Font sizes
+    --font-size-base: 16px;
+    --font-size-sm: 0.875rem;
+    --font-size-lg: 1.25rem;
+    --font-size-xl: 1.5rem;
+    --font-size-2xl: 2rem;
+    
+    @media (max-width: 768px) {
+        --font-size-2xl: 1.75rem;
+        --spacing-lg: 3rem;
+        --spacing-xl: 6rem;
+    }
+    
+    @media (max-width: 576px) {
+        --font-size-2xl: 1.5rem;
+        --spacing-lg: 2rem;
+        --spacing-xl: 4rem;
+    }
+}
