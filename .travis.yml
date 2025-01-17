@@ -37,18 +37,21 @@ script:
   - echo "Starting deployment..."
 
 deploy:
-  provider: s3
-  edge: true
-  access_key_id: $AWS_ACCESS_KEY_ID
-  secret_access_key: $AWS_SECRET_ACCESS_KEY
-  session_token: $AWS_SESSION_TOKEN
-  bucket: "jesseclark.io"
-  region: "us-east-1"
+  provider: script
+  script: |
+    aws s3 sync . s3://jesseclark.io \
+      --delete \
+      --acl public-read \
+      --exclude ".git/*" \
+      --exclude "node_modules/*" \
+      --exclude ".env" \
+      --exclude ".travis.yml" \
+      --exclude "test-deploy.sh" \
+      && aws s3 cp assets/css/style.css s3://jesseclark.io/assets/css/style.css \
+         --content-type "text/css" \
+         --cache-control "max-age=3600" \
+         --acl public-read
   skip_cleanup: true
-  local_dir: .
-  acl: public_read
-  detect_encoding: true
-  cache_control: "max-age=31536000"
   on:
     all_branches: true
     condition: $TRAVIS_BRANCH =~ ^(master|main)$ && $TRAVIS_PULL_REQUEST = false

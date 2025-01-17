@@ -48,6 +48,27 @@ if [ $? -eq 0 ]; then
     echo "Testing S3 access..."
     aws s3 ls s3://jesseclark.io
 
+    # Test S3 deployment
+    echo "Testing S3 deployment..."
+    aws s3 sync . s3://jesseclark.io \
+        --dryrun \
+        --delete \
+        --acl public-read \
+        --cache-control "max-age=31536000" \
+        --exclude ".git/*" \
+        --exclude "node_modules/*" \
+        --exclude ".env" \
+        --exclude ".travis.yml" \
+        --exclude "test-deploy.sh"
+
+    # Test CSS file deployment
+    echo "Testing CSS deployment..."
+    aws s3 cp assets/css/style.css s3://jesseclark.io/assets/css/style.css \
+        --dryrun \
+        --content-type "text/css" \
+        --cache-control "max-age=3600" \
+        --acl public-read
+
     # Test CloudFront access
     echo "Testing CloudFront access..."
     aws cloudfront get-distribution --id $CLOUDFRONT_DISTRIBUTION_ID
