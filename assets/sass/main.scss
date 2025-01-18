@@ -1,7 +1,9 @@
 // Import base styles
 @import 'libs/vars';
 
+// Import components
+@import 'components/button';
+@import 'components/notification';
+
 // Import layout
 @import 'layout/bg'; 
-
-@import 'components/notification'; 

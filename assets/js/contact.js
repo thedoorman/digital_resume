@@ -2,8 +2,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const contactForm = document.getElementById('contact-form');
     if (!contactForm) return;
 
+    let isSubmitting = false; // Flag to prevent duplicate submissions
+
     contactForm.addEventListener('submit', async (e) => {
         e.preventDefault();
+
+        // Prevent duplicate submissions
+        if (isSubmitting) return;
+        isSubmitting = true;
 
         // Get form elements
         const nameInput = contactForm.querySelector('input[name="name"]');
@@ -31,7 +37,6 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             const data = await response.json();
-            console.log('Response:', data); // Debug response
 
             if (!response.ok) {
                 throw new Error(data.error || data.message || 'Failed to send message');
@@ -41,40 +46,46 @@ document.addEventListener('DOMContentLoaded', () => {
             contactForm.reset();
 
         } catch (error) {
-            console.error('Full error:', error); // More detailed error logging
-            let errorMessage = 'Failed to send message';
-            
-            if (error.message.includes('SES')) {
-                errorMessage = 'Email service error. Please try again later.';
-            } else if (error.message.includes('Invalid')) {
-                errorMessage = error.message;
-            }
-            
-            showNotification(errorMessage, 'error');
+            console.error('Full error:', error);
+            showNotification(error.message || 'Failed to send message', 'error');
         } finally {
             submitButton.disabled = false;
             submitButton.innerHTML = 'Send Message';
+            isSubmitting = false; // Reset submission flag
         }
     });
 });
 
 function showNotification(message, type = 'success') {
-    const notification = document.createElement('div');
-    notification.className = `notification ${type}`;
-    notification.innerHTML = `
-        <div class="notification-content">
-            ${message}
-        </div>
-    `;
+    // Ensure notification is removed if script runs before CSS loads
+    requestAnimationFrame(() => {
+        // Remove existing notifications
+        const existingNotifications = document.querySelectorAll('.notification');
+        existingNotifications.forEach(notification => notification.remove());
 
-    document.body.appendChild(notification);
+        const notification = document.createElement('div');
+        notification.className = `notification ${type}`;
+        notification.setAttribute('role', 'alert');
+        notification.setAttribute('aria-live', 'polite'); // Add for accessibility
+        notification.innerHTML = `
+            <div class="notification-content">
+                ${message}
+            </div>
+        `;
 
-    // Fade in
-    setTimeout(() => notification.classList.add('show'), 100);
+        document.body.appendChild(notification);
+        
+        // Force reflow and ensure CSS is loaded
+        void notification.offsetHeight;
+        
+        // Add show class in next frame
+        requestAnimationFrame(() => {
+            notification.classList.add('show');
+        });
 
-    // Remove after delay
-    setTimeout(() => {
-        notification.classList.remove('show');
-        setTimeout(() => notification.remove(), 300);
-    }, 3000);
+        setTimeout(() => {
+            notification.classList.remove('show');
+            setTimeout(() => notification.remove(), 300);
+        }, 3000);
+    });
 } 

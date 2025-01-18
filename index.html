@@ -8,6 +8,25 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Critical notification styles in case CSS hasn't loaded */
+        .notification {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #0a0c17;
+            color: #0ff;
+            padding: 1.5rem;
+            border: 2px solid #0ff;
+            border-radius: 4px;
+            opacity: 0;
+            z-index: 9999;
+        }
+        .notification.show {
+            opacity: 1;
+        }
+    </style>
 	</head>
 	<body>
     <div class="cursor"></div>
