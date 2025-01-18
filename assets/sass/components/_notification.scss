@@ -1,0 +1,53 @@
+.notification {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    padding: 1rem 1.5rem;
+    border-radius: 4px;
+    background: rgba(10, 12, 23, 0.95);
+    color: #ffffff;
+    font-size: 1rem;
+    transform: translateY(100%);
+    opacity: 0;
+    transition: all 0.3s ease;
+    z-index: 9999;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    min-width: 300px;
+    text-align: center;
+
+    &.show {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    &.success {
+        background: rgba(10, 12, 23, 0.98);
+        border: 1px solid var(--color-cyan, #0ff);
+        border-left: 4px solid var(--color-cyan, #0ff);
+        text-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+    }
+
+    &.error {
+        background: rgba(10, 12, 23, 0.98);
+        border: 1px solid #ff4444;
+        border-left: 4px solid #ff4444;
+        text-shadow: 0 0 10px rgba(255, 68, 68, 0.3);
+    }
+
+    .notification-content {
+        font-weight: 500;
+        line-height: 1.4;
+        letter-spacing: 0.5px;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    @media (max-width: 768px) {
+        left: 1rem;
+        right: 1rem;
+        bottom: 1rem;
+        min-width: auto;
+        max-width: calc(100% - 2rem);
+    }
+} 
