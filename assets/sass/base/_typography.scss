@@ -22,17 +22,23 @@
 		}
 	}
 
+	// Base text styles
 	body, input, select, textarea {
 		color: _palette(fg);
 		font-family: _font(family);
 		font-weight: _font(weight);
 		font-size: 1rem;
 		line-height: 1.65;
+		text-rendering: optimizeLegibility;
 		-webkit-font-smoothing: antialiased;
 		-moz-osx-font-smoothing: grayscale;
-		text-rendering: optimizeLegibility;
+		font-kerning: normal;
+		font-feature-settings: "kern" 1;
+		letter-spacing: normal;
+		word-spacing: normal;
 	}
 
+	// Links
 	a {
 		@include vendor('transition', (
 			'color #{_duration(transition)} ease-in-out',
@@ -48,7 +54,9 @@
 		}
 	}
 
-	strong, b {
+	// Text emphasis
+	strong:not(.shimmer-text), 
+	b:not(.shimmer-text) {
 		color: _palette(fg-bold);
 		font-weight: _font(weight-bold);
 	}
@@ -57,10 +65,17 @@
 		font-style: italic;
 	}
 
+	// Paragraphs
 	p {
 		margin: 0 0 _size(element-margin) 0;
+		line-height: 1.8;
+		
+		&:last-child {
+			margin-bottom: 0;
+		}
 	}
 
+	// Headings base styles
 	h1, h2, h3, h4, h5, h6 {
 		color: _palette(fg-bold);
 		font-weight: _font(weight-bold);
@@ -68,6 +83,19 @@
 		margin: 0 0 (_size(element-margin) * 0.5) 0;
 		text-transform: uppercase;
 		letter-spacing: _font(letter-spacing);
+
+		// Shimmer effect
+		background: linear-gradient(
+			45deg,
+			rgba(255, 255, 255, 1) 0%,
+			rgba(224, 224, 224, 1) 50%,
+			rgba(255, 255, 255, 1) 100%
+		);
+		background-size: 200% auto;
+		-webkit-background-clip: text;
+		background-clip: text;
+		-webkit-text-fill-color: transparent;
+		animation: textShine 3s ease infinite;
 
 		a {
 			color: inherit;
@@ -83,20 +111,15 @@
 			padding-bottom: 0.5rem;
 			margin: 0 0 (_size(element-margin) * 1) 0;
 		}
-
-		background: linear-gradient(45deg, #fff, #e0e0e0);
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
-		background-size: 200% auto;
-		animation: textShine 3s ease infinite;
 	}
 
+	// Shimmer animation
 	@keyframes textShine {
-		to {
-			background-position: 200% center;
-		}
+		0% { background-position: 0% 50%; }
+		100% { background-position: 200% 50%; }
 	}
 
+	// Heading sizes
 	h1 {
 		font-size: 2.25rem;
 		line-height: 1.3;
@@ -125,6 +148,7 @@
 		font-size: 0.6rem;
 	}
 
+	// Responsive heading adjustments
 	@include breakpoint(small) {
 		h1 {
 			font-size: 1.75rem;
@@ -137,6 +161,7 @@
 		}
 	}
 
+	// Subscript and superscript
 	sub {
 		font-size: 0.8rem;
 		position: relative;
@@ -149,6 +174,7 @@
 		top: -0.5rem;
 	}
 
+	// Blockquotes
 	blockquote {
 		border-left: solid (_size(border-width) * 4) _palette(border);
 		font-style: italic;
@@ -156,6 +182,7 @@
 		padding: (_size(element-margin) / 4) 0 (_size(element-margin) / 4) _size(element-margin);
 	}
 
+	// Code blocks
 	code {
 		background: _palette(border-bg);
 		border-radius: _size(border-radius);
@@ -179,12 +206,14 @@
 		}
 	}
 
+	// Horizontal rules
 	hr {
 		border: 0;
 		border-bottom: solid _size(border-width) _palette(border);
 		margin: (_size(element-margin) * 1.375) 0;
 	}
 
+	// Alignment classes
 	.align-left {
 		text-align: left;
 	}
@@ -197,6 +226,7 @@
 		text-align: right;
 	}
 
+	// Link hover effect
 	a:not(.button) {
 		position: relative;
 		

@@ -126,146 +126,140 @@ function initScrollEffects() {
 
 // Carousel functionality
 function initCarousel() {
-	const container = document.querySelector('.carousel-container');
-	if (!container) return;
-
-	const track = container.querySelector('.carousel-track');
-	const slides = container.querySelectorAll('.carousel-slide');
-	const dots = container.querySelectorAll('.carousel-dot');
+	const carousels = document.querySelectorAll('.carousel');
 	
-	let currentIndex = 0;
-	let slidesPerView = 1;
-	let startX = 0;
-	let currentX = 0;
-	let isDragging = false;
+	carousels.forEach(carousel => {
+		const track = carousel.querySelector('.carousel-track');
+		const slides = Array.from(track.children);
+		const container = carousel.closest('.carousel-container');
+		const progress = container.querySelector('.progress-bar');
+		const dots = container.querySelectorAll('.carousel-dot');
+		
+		let isDragging = false;
+		let startPos = 0;
+		let currentTranslate = 0;
+		let prevTranslate = 0;
+		let currentIndex = 0;
+		let animationID = 0;
 
-	function updateSlidesPerView() {
-		const width = window.innerWidth;
-		if (width >= 1200) {
-			slidesPerView = 3;
-		} else if (width >= 768) {
-			slidesPerView = 2;
-		} else {
-			slidesPerView = 1;
-		}
-
-		// Update slide widths
-		const slideWidth = 100 / slidesPerView;
-		slides.forEach(slide => {
-			slide.style.flex = `0 0 ${slideWidth}%`;
-			slide.style.width = `${slideWidth}%`;
-		});
-		
-		// Set track width to accommodate all slides
-		track.style.width = `${(slides.length / slidesPerView) * 100}%`;
-		
-		const totalPages = Math.ceil(slides.length / slidesPerView);
-		currentIndex = Math.min(currentIndex, totalPages - 1);
-		
-		updateNavigation();
-		updateCarousel();
-	}
-
-	function updateNavigation() {
-		const totalPages = Math.ceil(slides.length / slidesPerView);
-		
-		dots.forEach((dot, i) => {
-			dot.style.display = i < totalPages ? 'block' : 'none';
-			dot.classList.toggle('active', i === currentIndex);
-			dot.style.cursor = 'pointer';
+		// Initialize touch events
+		slides.forEach((slide, index) => {
+			// Prevent dragging images
+			const slideImg = slide.querySelector('img');
+			if (slideImg) slideImg.addEventListener('dragstart', (e) => e.preventDefault());
 			
-			dot.removeEventListener('click', dot.clickHandler);
-			dot.clickHandler = () => {
-				if (i !== currentIndex) {
-					currentIndex = i;
-					updateCarousel(true);
-				}
-			};
-			dot.addEventListener('click', dot.clickHandler);
+			// Touch events
+			slide.addEventListener('touchstart', touchStart(index));
+			slide.addEventListener('touchend', touchEnd);
+			slide.addEventListener('touchmove', touchMove);
+			
+			// Mouse events
+			slide.addEventListener('mousedown', touchStart(index));
+			slide.addEventListener('mouseup', touchEnd);
+			slide.addEventListener('mouseleave', touchEnd);
+			slide.addEventListener('mousemove', touchMove);
 		});
-	}
 
-	function updateCarousel(animate = true) {
-		const slideWidth = 100 / slidesPerView;
-		const offset = currentIndex * -slideWidth;
-		track.style.transition = animate ? 'transform 0.3s ease' : 'none';
-		track.style.transform = `translateX(${offset}%)`;
-		updateNavigation();
-	}
-
-	// Touch/Mouse drag handlers
-	function handleDragStart(e) {
-		isDragging = true;
-		startX = e.type === 'mousedown' ? e.pageX : e.touches[0].pageX;
-		currentX = startX;
-		track.style.transition = 'none';
-	}
-
-	function handleDragMove(e) {
-		if (!isDragging) return;
-		
-		e.preventDefault();
-		currentX = e.type === 'mousemove' ? e.pageX : e.touches[0].pageX;
-		const diff = currentX - startX;
-		const totalPages = Math.ceil(slides.length / slidesPerView);
-		const maxOffset = -(100 / slidesPerView) * (totalPages - 1);
-		
-		let offset = (currentIndex * -(100 / slidesPerView)) + (diff / track.offsetWidth * 100);
-		offset = Math.max(maxOffset, Math.min(0, offset));
-		
-		track.style.transform = `translateX(${offset}%)`;
-	}
-
-	function handleDragEnd() {
-		if (!isDragging) return;
-		
-		isDragging = false;
-		const diff = currentX - startX;
-		const threshold = track.offsetWidth * 0.2;
-		const totalPages = Math.ceil(slides.length / slidesPerView);
-		
-		if (Math.abs(diff) > threshold) {
-			if (diff > 0 && currentIndex > 0) {
-				currentIndex--;
-			} else if (diff < 0 && currentIndex < totalPages - 1) {
-				currentIndex++;
+		// Disable context menu
+		window.oncontextmenu = function(event) {
+			if (event.target.closest('.carousel-track')) {
+				event.preventDefault();
+				event.stopPropagation();
+				return false;
 			}
 		}
-		
-		updateCarousel(true);
-	}
 
-	// Touch and mouse events
-	track.addEventListener('mousedown', handleDragStart);
-	track.addEventListener('touchstart', handleDragStart);
-	
-	window.addEventListener('mousemove', handleDragMove);
-	window.addEventListener('touchmove', handleDragMove, { passive: false });
-	
-	window.addEventListener('mouseup', handleDragEnd);
-	window.addEventListener('touchend', handleDragEnd);
-
-	// Keyboard navigation
-	document.addEventListener('keydown', (e) => {
-		const totalPages = Math.ceil(slides.length / slidesPerView);
-		
-		if (e.key === 'ArrowLeft' && currentIndex > 0) {
-			currentIndex--;
-			updateCarousel();
+		function touchStart(index) {
+			return function(event) {
+				isDragging = true;
+				currentIndex = index;
+				startPos = getPositionX(event);
+				animationID = requestAnimationFrame(animation);
+				track.style.cursor = 'grabbing';
+			}
 		}
-		if (e.key === 'ArrowRight' && currentIndex < totalPages - 1) {
-			currentIndex++;
-			updateCarousel();
+
+		function touchEnd() {
+			isDragging = false;
+			cancelAnimationFrame(animationID);
+			track.style.cursor = 'grab';
+			
+			const movedBy = currentTranslate - prevTranslate;
+			
+			// Determine if slide should advance
+			if (movedBy < -100 && currentIndex < slides.length - 1) {
+				currentIndex += 1;
+			}
+			if (movedBy > 100 && currentIndex > 0) {
+				currentIndex -= 1;
+			}
+			
+			setPositionByIndex();
+			updateDots();
+			updateProgress();
 		}
-	});
 
-	// Handle resize
-	let resizeTimer;
-	window.addEventListener('resize', () => {
-		clearTimeout(resizeTimer);
-		resizeTimer = setTimeout(updateSlidesPerView, 100);
-	});
+		function touchMove(event) {
+			if (!isDragging) return;
+			
+			const currentPosition = getPositionX(event);
+			currentTranslate = prevTranslate + currentPosition - startPos;
+		}
 
-	// Initialize
-	updateSlidesPerView();
+		function getPositionX(event) {
+			return event.type.includes('mouse') ? event.pageX : event.touches[0].clientX;
+		}
+
+		function animation() {
+			setSliderPosition();
+			if (isDragging) requestAnimationFrame(animation);
+		}
+
+		function setSliderPosition() {
+			track.style.transform = `translateX(${currentTranslate}px)`;
+		}
+
+		function setPositionByIndex() {
+			const slideWidth = slides[0].offsetWidth + 16; // Include gap
+			currentTranslate = currentIndex * -slideWidth;
+			prevTranslate = currentTranslate;
+			setSliderPosition();
+		}
+
+		function updateDots() {
+			dots.forEach((dot, index) => {
+				dot.classList.toggle('active', index === currentIndex);
+			});
+		}
+
+		function updateProgress() {
+			if (progress) {
+				const progressWidth = (currentIndex / (slides.length - 1)) * 100;
+				progress.style.width = `${progressWidth}%`;
+			}
+		}
+
+		// Add click handlers to dots
+		dots.forEach((dot, index) => {
+			dot.addEventListener('click', () => {
+				currentIndex = index;
+				setPositionByIndex();
+				updateDots();
+				updateProgress();
+			});
+		});
+
+		// Initial setup
+		setPositionByIndex();
+		updateDots();
+		updateProgress();
+
+		// Handle resize
+		window.addEventListener('resize', () => {
+			setPositionByIndex();
+		});
+	});
 }
+
+// Initialize carousel when DOM is loaded
+document.addEventListener('DOMContentLoaded', initCarousel);

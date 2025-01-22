@@ -20,4 +20,22 @@
         border-color: rgba(255, 0, 0, 0.2);
         color: #f87171;
     }
+}
+
+.contact {
+    grid-area: contact;
+    display: grid;
+    gap: var(--grid-gap);
+
+    .contact-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+        align-items: start;
+    }
+
+    .social-links {
+        display: grid;
+        gap: 1rem;
+    }
 } 

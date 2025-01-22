@@ -1,0 +1,97 @@
+// Grid System
+:root {
+    --grid-columns: 12;
+    --grid-gap: 2rem;
+    --container-padding: 2rem;
+    --container-max-width: 1000px;
+}
+
+.container {
+    width: 100%;
+    max-width: var(--container-max-width);
+    margin: 0 auto;
+    padding: 0 var(--container-padding);
+    box-sizing: border-box;
+
+    @media (max-width: 768px) {
+        padding: 0 1rem;
+    }
+}
+
+.grid {
+    display: grid;
+    gap: var(--grid-gap);
+    grid-template-columns: repeat(var(--grid-columns), 1fr);
+    width: 100%;
+
+    // Column spans
+    @for $i from 1 through 12 {
+        .col-#{$i} {
+            grid-column: span #{$i};
+        }
+    }
+
+    // Responsive columns
+    @media (max-width: 768px) {
+        --grid-gap: 1rem;
+        --container-padding: 1rem;
+
+        @for $i from 1 through 12 {
+            .col-md-#{$i} {
+                grid-column: span #{$i};
+            }
+        }
+    }
+
+    @media (max-width: 480px) {
+        @for $i from 1 through 12 {
+            .col-sm-#{$i} {
+                grid-column: span #{$i};
+            }
+        }
+    }
+}
+
+// Grid areas
+.grid-areas {
+    display: grid;
+    gap: var(--grid-gap);
+    
+    &--main {
+        grid-template-areas:
+            "hero"
+            "about"
+            "portfolio"
+            "summary"
+            "experience"
+            "education"
+            "contact";
+        
+        @media (min-width: 769px) {
+            grid-template-areas:
+                "hero"
+                "about"
+                "portfolio"
+                "summary"
+                "experience"
+                "education"
+                "contact";
+            gap: 4rem;
+        }
+    }
+}
+
+// Add utility classes
+.grid-gap-sm { gap: 1rem; }
+.grid-gap-md { gap: 2rem; }
+.grid-gap-lg { gap: 3rem; }
+
+.grid-cols-1 { grid-template-columns: 1fr; }
+.grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
+.grid-cols-3 { grid-template-columns: repeat(3, 1fr); }
+.grid-cols-4 { grid-template-columns: repeat(4, 1fr); }
+
+@media (max-width: 768px) {
+    .grid-cols-md-1 { grid-template-columns: 1fr; }
+    .grid-cols-md-2 { grid-template-columns: repeat(2, 1fr); }
+} 

@@ -1,0 +1,91 @@
+.hero {
+    grid-area: hero;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: var(--grid-gap);
+    align-items: center;
+    min-height: calc(100vh - var(--header-height));
+    padding: 4rem 0;
+    
+    .hero-content {
+        display: grid;
+        gap: 2rem;
+        max-width: 800px;
+        
+        .welcome {
+            font-family: var(--font-mono);
+            color: var(--color-cyan, #0ff);
+            font-size: 0.9rem;
+            letter-spacing: 0.1em;
+        }
+        
+        .hero-header {
+            display: grid;
+            gap: 1rem;
+            
+            h1 {
+                font-size: clamp(2.5rem, 5vw, 4rem);
+                line-height: 1.1;
+                letter-spacing: -0.02em;
+                
+                .blink {
+                    color: var(--color-cyan, #0ff);
+                    animation: blink 1s step-end infinite;
+                }
+            }
+            
+            .subtitle {
+                font-size: clamp(1rem, 2vw, 1.25rem);
+                color: rgba(255, 255, 255, 0.8);
+                max-width: 40ch;
+            }
+        }
+        
+        .button-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, max-content));
+            gap: 1rem;
+            align-items: center;
+        }
+    }
+    
+    .grid-decoration {
+        display: none;
+        
+        @media (min-width: 1024px) {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            gap: 1px;
+            width: 300px;
+            height: 300px;
+            opacity: 0.1;
+            
+            .grid-cells {
+                grid-column: span 2;
+                background: var(--color-cyan, #0ff);
+                
+                &:nth-child(odd) {
+                    opacity: 0.5;
+                }
+            }
+        }
+    }
+    
+    @media (max-width: 768px) {
+        grid-template-columns: 1fr;
+        padding: 2rem 0;
+        min-height: calc(90vh - var(--header-height));
+        
+        .hero-content {
+            gap: 1.5rem;
+            
+            .hero-header {
+                gap: 0.75rem;
+            }
+            
+            .button-group {
+                grid-template-columns: 1fr;
+            }
+        }
+    }
+} 

@@ -1,0 +1,67 @@
+@import '../base/effects';
+
+strong.shimmer-text,
+.shimmer-text {
+    @extend %gradient-text;
+    @extend %text-glow;
+    
+    position: relative;
+    background-image: linear-gradient(
+        90deg, 
+        var(--color-text, #ec4899),
+        var(--color-cyan, #22d3ee),
+        var(--color-text, #ec4899)
+    ) !important;
+    background-size: 200% auto;
+    animation: shimmer-slide 2s linear infinite;
+    font-weight: 500;
+    
+    // Force hardware acceleration
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000;
+    -webkit-font-smoothing: antialiased;
+}
+
+// Variant with white instead of pink
+.shimmer-text-mono {
+    @extend .shimmer-text;
+    background: linear-gradient(
+        90deg, 
+        #ffffff,
+        var(--color-cyan),
+        #ffffff
+    );
+}
+
+// Make selector more specific for different contexts
+ul.achievements li strong.shimmer-text,
+p strong.shimmer-text,
+.role-description strong.shimmer-text {
+    position: relative !important;
+    display: inline-block !important;
+    background-image: linear-gradient(
+        90deg, 
+        var(--color-text, #ec4899),
+        var(--color-cyan, #22d3ee),
+        var(--color-text, #ec4899)
+    ) !important;
+    background-size: 200% auto !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    animation: shimmer-slide 2s linear infinite !important;
+    font-weight: 500;
+    
+    // Force hardware acceleration
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000;
+    -webkit-font-smoothing: antialiased;
+}
+
+// Move animation to component level
+@keyframes shimmer-slide {
+    0% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+} 

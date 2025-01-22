@@ -1,9 +1,18 @@
 :root {
-    // Colors
-    --text-color: #fff;
-    --text-color-muted: #888;
-    --accent-color: #0ff;
-    --bg-color: #1a1a1a;
+    // Brand Colors
+    --color-primary: #ec4899;    // Pink
+    --color-secondary: #22d3ee;  // Cyan
+    --color-text: var(--color-primary);
+    --color-accent: var(--color-secondary);
+    
+    // UI Colors
+    --color-background: #1a1a1a;
+    --color-foreground: #ffffff;
+    --color-muted: rgba(255, 255, 255, 0.8);
+    
+    // Effects
+    --glow-primary: 0 0 15px rgba(34, 211, 238, 0.3);
+    --glow-secondary: 0 0 25px rgba(236, 72, 153, 0.3);
     
     // Typography
     --font-size-base: 16px;
@@ -18,7 +27,7 @@
     --button-padding: 0.5rem 1rem;
     --button-border-radius: 4px;
     --button-transition: all 0.3s ease;
-    --button-border-color: var(--text-color);
-    --button-hover-bg: var(--text-color);
-    --button-hover-color: var(--bg-color);
+    --button-border-color: var(--color-foreground);
+    --button-hover-bg: var(--color-foreground);
+    --button-hover-color: var(--color-background);
 }

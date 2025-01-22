@@ -1,0 +1,44 @@
+.about {
+    grid-area: about;
+    display: grid;
+    gap: var(--grid-gap);
+    
+    .about-content {
+        display: grid;
+        gap: 1.5rem;
+        
+        p {
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 70ch;
+            margin-bottom: 1rem;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+    
+    @media (max-width: 768px) {
+        .about-content {
+            gap: 1.25rem;
+            
+            p {
+                line-height: 1.6;
+                font-size: 0.95rem;
+                margin-bottom: 0.75rem;
+            }
+        }
+    }
+    
+    @media (max-width: 480px) {
+        .about-content {
+            gap: 1rem;
+            
+            p {
+                line-height: 1.5;
+                font-size: 0.9rem;
+                margin-bottom: 0.5rem;
+            }
+        }
+    }
+} 

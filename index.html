@@ -56,7 +56,7 @@
 					</header>
 
     <main>
-        <section class="hero container">
+        <section class="hero container grid-areas grid-areas--main">
             <div class="hero-content">
                 <div class="welcome">WELCOME TO MY SPACE</div>
                 <div class="hero-header">
@@ -79,7 +79,7 @@
             </div>
         </section>
 
-        <section id="about" class="about container">
+        <section id="about" class="about container grid-areas grid-areas--main">
             <div class="section-header">
                 <h2 class="section-title">About Me</h2>
                 <div class="section-underline"></div>
@@ -98,7 +98,7 @@
             </div>
         </section>
 
-        <section id="portfolio" class="portfolio container">
+        <section id="portfolio" class="portfolio-section container">
             <div class="section-header">
                 <h2 class="section-title">Portfolio</h2>
                 <div class="section-underline"></div>
@@ -173,227 +173,251 @@
             </div>
         </section>
 
-        <section id="resume" class="resume container">
-            <div class="section-header">
-                <h2>Experience</h2>
-            </div>
-
-            <!-- Profile Summary -->
-            <div class="resume-summary">
-                <h3>Product Leader | Culture & Community Builder</h3>
-                <p class="tagline">Form Organizations, Establish Agile Operations, & Take Platforms from Zero to One</p>
-                <p class="summary-text">
-                    Accomplished Product Leader with expertise in driving <strong>product strategy</strong>, development, and execution. Proven track record in <strong>Lean Product Management</strong>, <strong>Generative AI</strong>, <strong>Mobile First Design</strong>, and <strong>Cross-functional Leadership</strong>. Successfully launched multiple products driving customer satisfaction and business value in e-commerce, fintech, and cybersecurity.
-                </p>
-                <div class="skills-grid">
-                    <span class="skill-tag">Lean Product Management</span>
-                    <span class="skill-tag">Generative AI</span>
-                    <span class="skill-tag">Mobile First Design</span>
-                    <span class="skill-tag">Agile Development</span>
-                    <span class="skill-tag">Cross-functional Leadership</span>
-                    <span class="skill-tag">Software Development Lifecycle</span>
-                    <span class="skill-tag">Public Speaking</span>
-                    <span class="skill-tag">Stakeholder Management</span>
-                    <span class="skill-tag">User Analytics</span>
-                    <span class="skill-tag">User Research</span>
-                    <span class="skill-tag">People Leadership</span>
+        <section id="resume" class="container">
+            <div class="grid-areas grid-areas--main">
+                <div class="section-header">
+                    <h2>Experience</h2>
                 </div>
-            </div>
 
-            <!-- Experience Timeline -->
-            <div class="experience-timeline">
-                <!-- Target -->
-                <div class="experience-card">
-                    <div class="card-header">
-                        <div class="company-info">
-                            <h3>Target</h3>
-                            <span class="location">Remote</span>
-                        </div>
-                        <span class="duration">2023 - Present</span>
-                    </div>
-                    <div class="role">
-                        <h4>Senior Product Manager, Findability Experience</h4>
-                        <p class="role-description">
-                            A proven top performer with a track record of consistent delivery on <strong>four major cross-platform initiatives</strong> in the first year, including an experience-wide redesign, Circle Loyalty relaunch, generative AI application in search, and context-aware experiences. Achieved <span class="metric">5%</span> improvement in search performance and drove <span class="metric">$1M+</span> monthly revenue through innovative features.
-                        </p>
-                        <ul class="achievements">
-                            <li>Pioneered Target's first generative AI application in search, directing a 15-person team to deploy a guided experience for 1% of annual search volume</li>
-                            <li>Delivered 3 context-aware experiences for discretionary product shoppers estimated to lift search revenue by 1%</li>
-                            <li>Generated > $1M in search revenue every 30 days by spearheading the launch of Target Circle Deals filtering functionality</li>
-                        </ul>
-                        <!-- Temporarily disabled role-skills
-                        <div class="role-skills">
-                            <span class="skill-tag">Generative AI</span>
-                            <span class="skill-tag">Product Strategy</span>
-                            <span class="skill-tag">E-Commerce</span>
-                            <span class="skill-tag">A/B Testing</span>
-                            <span class="skill-tag">Cross-functional Leadership</span>
-                            <span class="skill-tag">Agile Development</span>
-                        </div>
-                        -->
+                <!-- Profile Summary -->
+                <div class="resume-summary">
+                    <h3>Product Leader | Culture & Community Builder</h3>
+                    <p class="tagline">Form Organizations, Establish Agile Operations, & Take Platforms from Zero to One</p>
+                    <p class="summary-text">
+                        Accomplished Product Leader with expertise in driving <strong class="shimmer-text">product strategy</strong>, development, and execution. Proven track record in <strong class="shimmer-text">Lean Product Management</strong>, <strong class="shimmer-text">Generative AI</strong>, <strong class="shimmer-text">Mobile First Design</strong>, and <strong class="shimmer-text">Cross-functional Leadership</strong>. Successfully launched multiple products driving customer satisfaction and business value in e-commerce, fintech, and cybersecurity.
+                    </p>
+                    <div class="skills-grid skill-tag-container skill-tag-container--summary">
+                        <span class="skill-tag">Lean Product Management</span>
+                        <span class="skill-tag">Generative AI</span>
+                        <span class="skill-tag">Mobile First Design</span>
+                        <span class="skill-tag">Agile Development</span>
+                        <span class="skill-tag">Cross-functional Leadership</span>
+                        <span class="skill-tag">Software Development Lifecycle</span>
+                        <span class="skill-tag">Public Speaking</span>
+                        <span class="skill-tag">Stakeholder Management</span>
+                        <span class="skill-tag">User Analytics</span>
+                        <span class="skill-tag">User Research</span>
+                        <span class="skill-tag">People Leadership</span>
                     </div>
                 </div>
 
-                <!-- GameStop -->
-                <div class="experience-card">
-                    <div class="card-header">
-                        <div class="company-info">
-                            <h3>GameStop</h3>
-                            <span class="location">Remote</span>
+                <!-- Experience Timeline -->
+                <div class="experience-timeline">
+                    <!-- Target -->
+                    <div class="experience-card">
+                        <div class="card-header">
+                            <div class="company-info">
+                                <h3>Target</h3>
+                                <span class="location">Remote</span>
+                            </div>
+                            <span class="duration">2023 - Present</span>
                         </div>
-                        <span class="duration">2021 - 2023</span>
-                    </div>
-                    <div class="role">
-                        <h4>Lead Product Manager, Search, Trade, and Inventory</h4>
-                        <p class="role-description">
-                            Promoted to Lead Product Manager for re-platforming search and redesigning the user experience, improving the click-through rate and 30-day performance by 5%. Managed inventory, trade, pre-owned, and warranty value streams. Cut real-time inventory visibility latency from a daily refresh and created a retro-gaming category strategy. Proven track record in driving product strategies and achieving results in gaming and retail.
-                        </p>
-                        <ul class="achievements">
-                            <li>Launched real-time inventory servicing in a Texas store, eliminating redundant inventory data sources to reduce order cancellations caused by in-store discrepancies</li>
-                            <li>Developed and delivered the alpha version of a store fulfillment administration portal, empowering administrators to manage fulfillment eligibility for 3,000 stores and handle orders requiring manual intervention while keeping store fulfillment decline rates below 2%</li>
-                        </ul>
-                        <!-- Temporarily disabled role-skills
-                        <div class="role-skills">
-                            <span class="skill-tag">Generative AI</span>
-                            <span class="skill-tag">Product Strategy</span>
-                            <span class="skill-tag">E-Commerce</span>
-                            <span class="skill-tag">A/B Testing</span>
-                            <span class="skill-tag">Cross-functional Leadership</span>
-                            <span class="skill-tag">Agile Development</span>
+                        <div class="role">
+                            <h4>Senior Product Manager, Findability Experience</h4>
+                            <p class="role-description">
+                                A proven top performer with a track record of consistent delivery on <strong class="shimmer-text">four major cross-platform initiatives</strong> in the first year, including an experience-wide redesign, Circle Loyalty relaunch, generative AI application in search, and context-aware experiences. Achieved <strong class="shimmer-text">5%</strong> improvement in search performance and drove <strong class="shimmer-text">$1M+</strong> monthly revenue through innovative features.
+                            </p>
+                            <ul class="achievements">
+                                <li><strong class="shimmer-text">Pioneered Target's first generative AI application in search,</strong> directing a 15-person team to deploy a guided experience for 1% of annual search volume</li>
+                                <li><strong class="shimmer-text">Delivered 3 context-aware experiences</strong> for discretionary product shoppers estimated to lift search revenue by 1%</li>
+                                <li><strong class="shimmer-text">Generated > $1M in search revenue every 30 days</strong> by spearheading the launch of Target Circle Deals filtering functionality</li>
+                            </ul>
+                            <div class="skill-tag-container skills-grid">
+                                <span class="skill-tag">Generative AI</span>
+                                <span class="skill-tag">Product Strategy</span>
+                                <span class="skill-tag">E-Commerce</span>
+                                <span class="skill-tag">A/B Testing</span>
+                                <span class="skill-tag">Cross-functional Leadership</span>
+                                <span class="skill-tag">Agile Development</span>
+                            </div>
                         </div>
-                        -->
                     </div>
-                    <div class="role">
-                        <h4>Senior Product Manager, Search Platform</h4>
-                        <p class="role-description">
-                            Led product management for a high-scale consumer product focused on omnichannel site search. Utilized expertise in search technology, data analysis, and user-centered design to develop a search platform (data acquisition, indexing, and guest-facing API) from inception to completion within 3 months, which became the primary pathway to purchase for GameStop shoppers after successful experimentation.</p>
-                        <ul class="achievements">
-                            <li>Developed and released a search API and administration capability, resulting in a 5% increase in search result click-through rate while maintaining overall checkout rates.</li>
-                            <li>Launched a "Get It Fast" user experience, enabling customers to easily find products available for store pickup or same-day delivery, driving a 3-5% growth in daily average store pickup orders and boosting profit margins</li>
-                            <li>Spearheaded the redesign of the discovery user experience, including features like "Shop My Store," optimized image assets, and elimination of redundant network calls. This resulted in a 25% reduction in page load times while serving millions of sessions monthly</li>
-                            <li>Continuously improved search relevance, focusing on high-volume search terms (representing 80% of monthly volume) through curated searches and retiring 60% of legacy search-driven redirects. Equipped site merchandising teams with insights on top "zero results" search phrases to further enhance the customer experience</li>
-                        </ul>
-                        <!-- Temporarily disabled role-skills
-                        <div class="role-skills">
-                            <span class="skill-tag">Product Strategy</span>
-                            <span class="skill-tag">E-Commerce</span>
-                            <span class="skill-tag">Platform Architecture</span>
-                            <span class="skill-tag">User Research</span>
-                            <span class="skill-tag">A/B Testing</span>
-                            <span class="skill-tag">Cross-functional Leadership</span>
-                        </div>
-                        -->
-                    </div>
-									</div>
 
-                <!-- Capital One -->
-                <div class="experience-card">
-                    <div class="card-header">
-                        <div class="company-info">
-                            <h3>Capital One</h3>
-                            <span class="location">Richmond, VA</span>
-									</div>
-                        <span class="duration">2018 - 2021</span>
-									</div>
-                    <div class="role">
-                        <h4>Group Product Manager, Customer Identity Platform</h4>
-                        <p class="role-description">
-                            Promoted to group product manager of the customer identity platform, where I mentored three team members, coaching two to transition into product management. I built strong partnerships with design, technology, and fraud teams to deliver the first release of the self-service identity administration portal. This reduced cycle time from months to days, enabling the William Sonoma credit card launch.                        </p>
-                        <ul class="achievements">
-                            <li>Led a 25-person cross-functional team in the development, testing, and configuration of identity verification workflows for the launch of the William Sonoma co-branded credit card to mitigate the risk of fraudulent applications while maintaining a streamlined customer experience</li>
-                            <li>Established a 100-member cross-business platform community and newsletter, fostering collaboration and driving component reuse across the organization</li>
-									</ul>
-                    </div>
-                    <div class="role">
-                        <h4>Senior Manager, Product Management, Architecture and Enterprise Search</h4>
-                        <p class="role-description">
-                            Practiced lean product management by creating a mission, vision, and road map for enterprise architecture engineering with daily improvements. Conducted 50 studies to identify issues and validate assumptions. Promoted cross-division awareness through blogging, public speaking, and CIO endorsements, enhancing code reuse, security, and resilience for over 400 applications.                        </p>
-                        <ul class="achievements">
-                            <li>Developed and launched a software inventory and enterprise search application that quantified technology modernization progress across all Capital One software. This equipped teams with actionable insights to enhance security, resilience, and compliance</li>
-                            <li>Created data visualizations experience that empowered the Chief Information Officer and Chief Architect to make informed decisions on software maintenance, investment, and retirement, optimizing technology capital allocation</li>
-                            <li>Co-founded a 1,000-member code reuse community, facilitating software discovery and reuse across divisions to improve efficiency and reduce redundant development efforts</li>
-								</ul>
-                    </div>
-				</div>
-
-                <!-- GE Digital -->
-                <div class="experience-card">
-                    <div class="card-header">
-                        <div class="company-info">
-                            <h3>GE Digital</h3>
-                            <span class="location">Richmond, VA</span>
+                    <!-- GameStop -->
+                    <div class="experience-card">
+                        <div class="card-header">
+                            <div class="company-info">
+                                <h3>GameStop</h3>
+                                <span class="location">Remote</span>
+                            </div>
+                            <span class="duration">2021 - 2023</span>
                         </div>
-                        <span class="duration">2012 - 2018</span>
-                    </div>
-                    <div class="role">
-                        <h4>Group Product Manager, GhostRed</h4>
-                        <p class="role-description">
-                            Promoted to team lead and product manager for a newly formed agile team, born out of a volunteer effort, to create a public-facing service to build and run game-based technology competitions for recruiting and training. Ran 20 competitions globally, successfully hired 6 candidates and trained more than 300 in engineering and security acumen.</p>
-                        <ul class="achievements">
-                            <li>Designed and coordinated 20 technology competitions over 12 months, resulting in 6 full-time hires for a newly formed cloud technology organization. These competitions effectively identified and attracted top talent</li>
-                            <li>Developed GE's first video game — Terminal, a hacker simulator — for two multi-day cybersecurity training sessions, engaging 300 executives and leadership program members. This innovative approach fostered cybersecurity awareness and enhanced technical skillsets</li>
-                        </ul>
-                    </div>
-                    <div class="role">
-                        <h4>Senior Product Manager, API Management</h4>
-                        <p class="role-description">
-                            Transitioned into product management while pursuing an MBA, successfully navigating complex organizational structures to achieve cross-functional alignment on key product decisions. Applied lean product management and marketing competencies, building 250-member engineering community and launched a new API platform that resulted in a $1MM in annual savings. Elevated security posture across all businesses.</p>
-                        <ul class="achievements">
-                            <li>Successfully influenced 250 engineers to adopt five authentication standards and self-service access provisioning. This initiative enhanced application security and is projected to drive cost savings exceeding $1 million annually.</li>
-                        </ul>
-                    </div>
-                    <div class="role">
-                        <h4>Lead Analyst, Data Loss Prevention</h4>
-                        <p class="role-description">
-                        First role following rotational leadership program deploying large-scale data protection ecosystem eliminating multi-million-dollar data breach vector. Developed strengths in cross-functional team leadership, executive communication, and cybersecurity engineering.</p>
-                        <ul class="achievements">
-                            <li>Led a 20-member, cross-functional security team to architect, communicate, and deploy data protection controls that eliminated a multi-million-dollar risk vector for intellectual property loss.</li>
-						</ul>
-                    </div>
-			</div>
+                        <div class="role">
+                            <h4>Lead Product Manager, Search, Trade, and Inventory</h4>
+                            <p class="role-description">
+                                Promoted to Lead Product Manager for re-platforming search and redesigning the user experience, improving the click-through rate and 30-day performance by <strong class="shimmer-text">5%</strong>. Managed inventory, trade, pre-owned, and warranty value streams. Cut real-time inventory visibility latency from a daily refresh and created a retro-gaming category strategy. Proven track record in driving product strategies and achieving results in gaming and retail.
+                            </p>
+                            <ul class="achievements">
+                                <li>Launched real-time inventory servicing in a Texas store, eliminating redundant inventory data sources to reduce order cancellations caused by in-store discrepancies</li>
+                                <li>Developed and delivered the alpha version of a store fulfillment administration portal, empowering administrators to manage fulfillment eligibility for 3,000 stores and handle orders requiring manual intervention while keeping store fulfillment decline rates below 2%</li>
+                            </ul>
+                            <div class="skill-tag-container skills-grid">
+                                <span class="skill-tag">Lean Product Management</span>
+                                <span class="skill-tag">Inventory Management</span>
+                                <span class="skill-tag">Cross-functional Leadership</span>
+                                <span class="skill-tag">Agile Development</span>
+                            </div>
+                        </div>
+                        <div class="role">
+                            <div class="role-header">
+                                <h4>Senior Product Manager, Search Platform</h4>
+                            </div>
+                            
+                            <div class="role-description">
+                                Led product management for a high-scale consumer product focused on omnichannel site search. Utilized expertise in search technology, data analysis, and user-centered design to develop a search platform (data acquisition, indexing, and guest-facing API) from inception to completion within <strong class="shimmer-text">3 months</strong>, which became the primary pathway to purchase for GameStop shoppers after successful experimentation.
+                            </div>
 
-                <!-- Additional Experience -->
-                <div class="experience-card">
-                    <div class="card-header">
-                        <div class="company-info">
-                            <h3>Additional Experience</h3>
+                            <ul class="achievements">
+                                <li>Developed and released a search API and administration capability, resulting in a <strong class="shimmer-text">5%</strong> increase in search result click-through rate while maintaining overall checkout rates.</li>
+                                <li>Launched a "Get It Fast" user experience, enabling customers to easily find products available for store pickup or same-day delivery, driving a <strong class="shimmer-text">3-5%</strong> growth in daily average store pickup orders and boosting profit margins</li>
+                                <li>Spearheaded the redesign of the discovery user experience, including features like "Shop My Store," optimized image assets, and elimination of redundant network calls. This resulted in a <strong class="shimmer-text">25%</strong> reduction in page load times while serving millions of sessions monthly</li>
+                                <li>Continuously improved search relevance, focusing on high-volume search terms (representing <strong class="shimmer-text">80%</strong> of monthly volume) through curated searches and retiring <strong class="shimmer-text">60%</strong> of legacy search-driven redirects. Equipped site merchandising teams with insights on top "zero results" search phrases to further enhance the customer experience</li>
+                            </ul>
+
+                            <div class="skill-tag-container skills-grid">
+                                <span class="skill-tag">Lean Product Management</span>
+                                <span class="skill-tag">Cross-functional Leadership</span>
+                                <span class="skill-tag">Search Platform Architecture</span>
+                                <span class="skill-tag">A/B Testing</span>
+                                <span class="skill-tag">Customer Analytics</span>
+                            </div>
                         </div>
                     </div>
-                    <div class="role">
-                        <h4>Explore Interactive</h4>
-                        <span class="position">Director of Marketing and Product Development</span>
-                        <ul class="achievements">
-                            <li>•	Developed a go-to-market strategy for an educational technology startup to raise $130k in funding. Managed the request for proposal process to select an engineering partner for launching the minimum viable product</li>
-                        </ul>
+
+                    <!-- Capital One -->
+                    <div class="experience-card">
+                        <div class="card-header">
+                            <div class="company-info">
+                                <h3>Capital One</h3>
+                                <span class="location">Richmond, VA</span>
+                            </div>
+                            <span class="duration">2018 - 2021</span>
+                        </div>
+
+                        <div class="role">
+                            <div class="role-header">
+                                <h4>Group Product Manager, Customer Identity Platform</h4>
+                            </div>
+                            
+                            <div class="role-description">
+                                Promoted to group product manager of the customer identity platform, where I mentored three team members, coaching two to transition into product management. I built <strong class="shimmer-text">strong partnerships</strong> with design, technology, and fraud teams to deliver the first release of the self-service identity administration portal. This reduced cycle time from <strong class="shimmer-text">months</strong> to <strong class="shimmer-text">days</strong>, enabling the William Sonoma credit card launch.
+                            </div>
+
+                            <ul class="achievements">
+                                <li>Led a <strong class="shimmer-text">25-person</strong> cross-functional team in the development, testing, and configuration of identity verification workflows for the launch of the William Sonoma co-branded credit card to mitigate the risk of fraudulent applications while maintaining a streamlined customer experience</li>
+                                <li>Established a <strong class="shimmer-text">100-member</strong> cross-business platform community and newsletter, fostering collaboration and driving component reuse across the organization</li>
+                            </ul>
+
+                            <div class="skill-tag-container skills-grid">
+                                <span class="skill-tag">Leean Product Management</span>
+                                <span class="skill-tag">Identity & Access Management</span>
+                                <span class="skill-tag">People Leadership</span>
+                                <span class="skill-tag">Platform Strategy</span>
+                                <span class="skill-tag">Cross-functional Leadership</span>
+                            </div>
+                        </div>
+
+                        <div class="role">
+                            <div class="role-header">
+                                <h4>Senior Manager, Product Management, Architecture and Enterprise Search</h4>
+                            </div>
+                            
+                            <div class="role-description">
+                                Practiced lean product management by creating a mission, vision, and road map for enterprise architecture engineering with daily improvements. Conducted <strong class="shimmer-text">50</strong> studies to identify issues and validate assumptions. Promoted cross-division awareness through blogging, public speaking, and CIO endorsements, enhancing code reuse, security, and resilience for over <strong class="shimmer-text">400</strong> applications.
+                            </div>
+
+                            <ul class="achievements">
+                                <li>Developed and implemented a new enterprise search strategy, resulting in a <strong class="shimmer-text">30%</strong> improvement in search relevancy and user satisfaction</li>
+                                <li>Led architecture modernization initiatives across <strong class="shimmer-text">400+</strong> applications, reducing technical debt by <strong class="shimmer-text">25%</strong></li>
+                            </ul>
+
+                            <div class="skill-tag-container skills-grid">
+                                <span class="skill-tag">Lean Product Management</span>
+                                <span class="skill-tag">Enterprise Architecture</span>
+                                <span class="skill-tag">InnerSource</span>
+                                <span class="skill-tag">Public Speaking</span>
+                                <span class="skill-tag">User Research</span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="role">
-                        <h4>Digital Technology Leadership Program</h4>
-                        <ul class="achievements">
-                            <li>Achieved top ratings in four 6-month Corporate IT assignments, gaining experience in UI redesign, data center management, application architecture, and cybersecurity</li>
-                        </ul>
+
+                    <!-- GE Digital -->
+                    <div class="experience-card">
+                        <div class="card-header">
+                            <div class="company-info">
+                                <h3>GE Digital</h3>
+                                <span class="location">Richmond, VA</span>
+                            </div>
+                            <span class="duration">2012 - 2018</span>
+                        </div>
+
+                        <div class="role">
+                            <div class="role-header">
+                                <h4>Group Product Manager, GhostRed</h4>
+                            </div>
+                            
+                            <div class="role-description">
+                                Promoted to team lead and product manager for a newly formed agile team, born out of a volunteer effort, to create a public-facing service to build and run game-based technology competitions for recruiting and training. Ran <strong class="shimmer-text">20</strong> competitions globally, successfully hired <strong class="shimmer-text">6</strong> candidates and trained more than <strong class="shimmer-text">300</strong> in engineering and security acumen.
+                            </div>
+
+                            <ul class="achievements">
+                                <li>Led development of a gamification platform that increased candidate engagement by <strong class="shimmer-text">40%</strong> and reduced hiring time by <strong class="shimmer-text">25%</strong></li>
+                                <li>Managed a team of <strong class="shimmer-text">8</strong> developers and designers, delivering <strong class="shimmer-text">4</strong> major platform releases</li>
+                            </ul>
+
+                            <div class="skill-tag-container skills-grid">
+                                <span class="skill-tag">Gamification</span>
+                                <span class="skill-tag">People Leadership</span>
+                                <span class="skill-tag">Agile Development</span>
+                                <span class="skill-tag">Recruitment Tech</span>
+                                <span class="skill-tag">Cyber Security</span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="role">
-                        <h4>Deep Run High School</h4>
-                        <span class="position">Chair of Advisory Board, Center for Information Technology</span>
-                        <ul class="achievements">
-                            <li>•	As chair of the advisory board, directed efforts to improve the program through new course development, connected students to internships, and identified student project sponsors</li>
-			</ul>
+
+                    <!-- Additional Experience -->
+                    <div class="experience-card">
+                        <div class="card-header">
+                            <div class="company-info">
+                                <h3>Additional Experience</h3>
+                            </div>
+                        </div>
+                        <div class="role">
+                            <h4>Explore Interactive</h4>
+                            <span class="position">Director of Marketing and Product Development</span>
+                            <ul class="achievements">
+                                <li>Developed a go-to-market strategy for an educational technology startup to raise $130k in funding. Managed the request for proposal process to select an engineering partner for launching the minimum viable product</li>
+                            </ul>
+                        </div>
+                        <div class="role">
+                            <h4>Digital Technology Leadership Program</h4>
+                            <ul class="achievements">
+                                <li>Achieved top ratings in four 6-month Corporate IT assignments, gaining experience in UI redesign, data center management, application architecture, and cybersecurity</li>
+                            </ul>
+                        </div>
+                        <div class="role">
+                            <h4>Deep Run High School</h4>
+                            <span class="position">Chair of Advisory Board, Center for Information Technology</span>
+                            <ul class="achievements">
+                                <li>As chair of the advisory board, directed efforts to improve the program through new course development, connected students to internships, and identified student project sponsors</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Education -->
-            <div class="education-section">
-                <h3>Education</h3>
-                <div class="education-grid">
-                    <div class="education-card">
-                        <h4>Master of Business Administration (MBA)</h4>
-                        <p>University of North Carolina, Chapel Hill</p>
-                    </div>
-                    <div class="education-card">
-                        <h4>BS Computer Science</h4>
-                        <p>University of Massachusetts, Amherst</p>
-                        <span class="achievement">Magna Cum Laude</span>
+                <!-- Education -->
+                <div class="education-section">
+                    <h3>Education</h3>
+                    <div class="education-grid">
+                        <div class="education-card">
+                            <h4>Master of Business Administration (MBA)</h4>
+                            <p>University of North Carolina, Chapel Hill</p>
+                        </div>
+                        <div class="education-card">
+                            <h4>BS Computer Science</h4>
+                            <p>University of Massachusetts, Amherst</p>
+                            <span class="achievement">Magna Cum Laude</span>
+                        </div>
                     </div>
                 </div>
             </div>

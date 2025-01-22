@@ -1,9 +1,27 @@
-// Import base styles
+// 1. Configuration and helpers
 @import 'libs/vars';
+@import 'libs/functions';
+@import 'libs/mixins';
+@import 'libs/skel';
 
-// Import components
+// 2. Base styles and resets
+@import 'base/reset';  // Add a reset if you don't have one
+@import 'base/page';
+@import 'base/typography';
+@import 'base/effects';
+@import 'base/grid';
+
+// 3. Shared components (order matters)
+@import 'components/shimmer';  // Core effects first
+@import 'components/list';     // Basic elements
 @import 'components/button';
-@import 'components/notification';
+@import 'components/skill-tag';
+@import 'components/carousel';
+@import 'components/portfolio';
 
-// Import layout
-@import 'layout/bg'; 
+// 4. Feature components
+@import 'components/resume';   // Complex components last
+
+// 5. Layout-specific styles
+@import 'layout/bg';
+@import 'layout/footer'; 
