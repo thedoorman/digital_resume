@@ -131,20 +131,7 @@ strong {
     font-weight: var(--font-weight-semibold) !important;
 }
 
-/* Update highlight text style */
-span.highlight {
-    background: linear-gradient(to right, var(--color-text), var(--color-cyan));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    color: transparent;
-    display: inline-block;
-    font-weight: var(--font-weight-semibold) !important;
 
-    &:hover {
-        opacity: 0.8;
-    }
-}
 
 /* ==========================================================================
    Layout & Grid
