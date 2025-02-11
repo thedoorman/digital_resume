@@ -34,26 +34,28 @@
     <div class="bg-grid"></div>
     
     <header class="header">
-        <div class="header-container container">
+        <div class="header-container">
             <a href="/" class="logo">jesseclark.io</a>
             <button 
                 class="menu-button" 
                 aria-label="Toggle menu" 
                 aria-expanded="false"
+                aria-controls="main-nav"
                 type="button"
             >
-                <span class="menu-icon"></span>
+                <div class="menu-icon"></div>
             </button>
-            <nav class="main-nav">
+            <nav class="main-nav" id="main-nav">
                 <ul class="nav-list">
-                    <li><a href="#about" class="button button-secondary" style="--button-index: 0">ABOUT</a></li>
-                    <li><a href="#portfolio" class="button button-secondary" style="--button-index: 1">PORTFOLIO</a></li>
-                    <li><a href="#resume" class="button button-secondary" style="--button-index: 2">RESUME</a></li>
-                    <li><a href="#connect" class="button button-secondary" style="--button-index: 3">CONNECT</a></li>
-							</ul>
-						</nav>
+                    <li><a href="#about" class="button button-secondary">ABOUT</a></li>
+                    <li><a href="#portfolio" class="button button-secondary">PORTFOLIO</a></li>
+                    <li><a href="#resume" class="button button-secondary">RESUME</a></li>
+                    <li><a href="#connect" class="button button-secondary">CONNECT</a></li>
+                </ul>
+            </nav>
+            <div class="nav-backdrop" aria-hidden="true"></div>
         </div>
-					</header>
+    </header>
 
     <main>
         <section class="hero container grid-areas grid-areas--main">
@@ -105,11 +107,20 @@
             </div>
             
             <div class="carousel-container">
+                <button class="carousel-arrow prev" aria-label="Previous slide">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M15 18l-6-6 6-6" />
+                    </svg>
+                </button>
+                <button class="carousel-arrow next" aria-label="Next slide">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M9 18l6-6-6-6" />
+                    </svg>
+                </button>
                 <div class="carousel">
                     <div class="carousel-track">
-
-						  <!-- Target -->
-						  <a href="https://www.target.com/s?searchTerm=table" class="carousel-slide" target="_blank">
+                        <!-- Target -->
+                        <a href="https://www.target.com/s?searchTerm=table" class="carousel-slide" target="_blank" rel="noopener noreferrer">
                             <div class="preview-image loading">
                                 <img 
                                     src="assets/images/target-search.svg" 
@@ -134,7 +145,6 @@
                                 <p>Game-based cybersecurity training platform</p>
                             </div>
                         </a>
-
                         <!-- MindLabs -->
                         <a href="https://exploremindlabs.com/" class="carousel-slide" target="_blank">
                             <div class="preview-image">
@@ -145,7 +155,6 @@
                                 <p>Pokemon cards meets Stem Education in AR</p>
                             </div>
                         </a>
-
                         <!-- GameStop Search -->
                         <a href="https://www.gamestop.com/search/?q=mario+kart" class="carousel-slide" target="_blank">
                             <div class="preview-image loading">
@@ -163,12 +172,13 @@
                             </div>
                         </a>
                     </div>
+                    <div class="carousel-progress"></div>
                 </div>
-                <div class="carousel-navigation">
-                    <button class="carousel-dot active" aria-label="Go to slide 1"></button>
-                    <button class="carousel-dot" aria-label="Go to slide 2"></button>
-                    <button class="carousel-dot" aria-label="Go to slide 3"></button>
-                    <button class="carousel-dot" aria-label="Go to slide 4"></button>
+                <div class="carousel-navigation" role="tablist" aria-label="Carousel navigation">
+                    <button class="carousel-dot active" role="tab" aria-selected="true" aria-label="Slide 1"></button>
+                    <button class="carousel-dot" role="tab" aria-selected="false" aria-label="Slide 2"></button>
+                    <button class="carousel-dot" role="tab" aria-selected="false" aria-label="Slide 3"></button>
+                    <button class="carousel-dot" role="tab" aria-selected="false" aria-label="Slide 4"></button>
                 </div>
             </div>
         </section>
@@ -495,8 +505,6 @@
             </div>
         </section>
     </main>
-
-    <script type="module" src="assets/js/main.js"></script>
-    <script src="assets/js/contact.js"></script>
+    <script src="assets/js/main.js"></script>
 	</body>
 </html>

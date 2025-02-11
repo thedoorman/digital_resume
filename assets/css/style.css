@@ -1081,100 +1081,64 @@ section:nth-child(5) { animation-delay: 0.5s; }
     position: relative;
     max-width: 1200px;
     margin: var(--spacing-lg) auto;
-    padding: 0;
+    padding: 0 var(--spacing-md);
 }
 
 .carousel {
     position: relative;
     overflow: hidden;
     border-radius: 8px;
+    touch-action: pan-y pinch-zoom;
 }
 
 .carousel-track {
     display: flex;
     gap: var(--spacing-md);
-    transition: transform 0.3s ease;
+    will-change: transform;
+    user-select: none;
+    cursor: grab;
 }
 
-/* Navigation dots */
-.carousel-navigation {
-    display: flex;
-    justify-content: center;
-    gap: 0.5rem;
-    margin-top: var(--spacing-md);
-}
-
-.carousel-dot {
-    width: 2rem;
-    height: 0.25rem;
-    background: rgba(34, 211, 238, 0.2);
-    border: none;
-    cursor: pointer;
-    transition: all var(--transition-medium) ease;
-}
-
-.carousel-dot.active {
-    background: var(--color-cyan);
-    width: 3rem;
-}
-
-.carousel-dot:hover {
-    background: rgba(34, 211, 238, 0.4);
-}
-
-/* Progress bar */
-.carousel-progress {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background: rgba(34, 211, 238, 0.1);
-}
-
-.progress-bar {
-    height: 100%;
-    background: var(--color-cyan);
-    transition: width 0.3s ease;
+.carousel-track:active {
+    cursor: grabbing;
 }
 
 /* Slide styles */
 .carousel-slide {
     min-width: 300px;
     max-width: 300px;
+    flex: 0 0 300px;
+    margin-right: var(--spacing-md);
     position: relative;
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(34, 211, 238, 0.1);
     border-radius: 8px;
-    transition: all var(--transition-medium) ease;
+    transition: transform var(--transition-medium) ease,
+                border-color var(--transition-medium) ease,
+                box-shadow var(--transition-medium) ease;
     text-decoration: none;
-    display: block;
     overflow: hidden;
-    cursor: grab;
+    will-change: transform;
 }
 
-.carousel-slide:active {
-    cursor: grabbing;
+.carousel-slide:last-child {
+    margin-right: 0;
+}
+
+.carousel-slide:hover {
+    transform: translateY(-2px);
+    border-color: rgba(34, 211, 238, 0.3);
+    box-shadow: 0 4px 20px rgba(34, 211, 238, 0.1);
 }
 
 /* Mobile styles */
 @media (max-width: 1023px) {
-    .carousel {
-        overflow-x: auto;
-        scroll-snap-type: x mandatory;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
-        -ms-overflow-style: none;
-    }
-    
-    .carousel::-webkit-scrollbar {
-        display: none;
-    }
-    
     .carousel-slide {
-        scroll-snap-align: center;
+        min-width: calc(100% - var(--spacing-md));
+        max-width: calc(100% - var(--spacing-md));
+        flex: 0 0 calc(100% - var(--spacing-md));
     }
-} 
+}
 
 /* Contact Form Updates */
 .contact-form button {
@@ -1271,5 +1235,109 @@ section:nth-child(5) { animation-delay: 0.5s; }
     to {
         transform: translateX(100%);
         opacity: 0;
+    }
+}
+
+/* Navigation dots */
+.carousel-navigation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: var(--spacing-lg);
+    padding: 0 var(--spacing-md);
+}
+
+.carousel-dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    background: rgba(34, 211, 238, 0.2);
+    border: none;
+    cursor: pointer;
+    transition: all var(--transition-medium) ease;
+    border-radius: 50%;
+    padding: 0;
+}
+
+.carousel-dot.active {
+    background: var(--color-cyan);
+    transform: scale(1.2);
+}
+
+.carousel-dot:hover:not(.active) {
+    background: rgba(34, 211, 238, 0.4);
+    transform: scale(1.1);
+}
+
+/* Carousel Navigation Arrows (Desktop Only) */
+.carousel-arrow {
+    display: none;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3rem;
+    height: 3rem;
+    background: rgba(10, 12, 23, 0.8);
+    border: 1px solid rgba(34, 211, 238, 0.2);
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 10;
+    color: var(--color-cyan);
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition-medium) ease;
+    backdrop-filter: blur(4px);
+}
+
+.carousel-arrow:hover {
+    background: rgba(34, 211, 238, 0.1);
+    border-color: var(--color-cyan);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.carousel-arrow.prev {
+    left: -1.5rem;
+}
+
+.carousel-arrow.next {
+    right: -1.5rem;
+}
+
+.carousel-arrow svg {
+    width: 1.5rem;
+    height: 1.5rem;
+    stroke: currentColor;
+    stroke-width: 2;
+    fill: none;
+}
+
+@media (min-width: 1024px) {
+    .carousel-arrow {
+        display: flex;
+    }
+    
+    .carousel-container {
+        padding: 0 var(--spacing-xl);
+    }
+}
+
+/* Update mobile carousel slide styles */
+@media (max-width: 1023px) {
+    .carousel-container {
+        padding: 0;
+    }
+    
+    .carousel {
+        padding: 0 var(--spacing-md);
+    }
+    
+    .carousel-slide {
+        min-width: 85vw;
+        max-width: 85vw;
+        flex: 0 0 85vw;
+    }
+    
+    .carousel-slide:last-child {
+        margin-right: var(--spacing-md); /* Add right margin to last slide on mobile */
     }
 } 

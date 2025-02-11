@@ -4,7 +4,7 @@
 
 	/// Breakpoints.
 	/// @var {list}
-	$breakpoints: () !global;
+	$breakpoints: ();
 
 	/// Vendor prefixes.
 	/// @var {list}
@@ -65,6 +65,8 @@
 		'radial-gradient',
 		'transform'
 	);
+
+$layout: ();
 
 // Functions.
 
@@ -353,6 +355,7 @@
 	/// @param {map} config Config.
 	///
 	@mixin skel-layout($config: ()) {
+		$layout: $config !global;
 
 		// Config.
 			$configPerBreakpoint: ();
@@ -571,7 +574,7 @@
 			}
 
 		// Expand just the value?
-			@elseif $expandValue {
+			@else if $expandValue {
 			    @each $vendor in $vendor-prefixes {
 			        #{$property}: #{str-replace-all($value, '-prefix-', $vendor)};
 			    }
