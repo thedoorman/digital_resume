@@ -87,9 +87,10 @@ function initCarousel() {
 		let currentTranslate = 0;
 		let prevTranslate = 0;
 		let currentIndex = 0;
-		let lastDragTime = 0;
+		let lastDragTime = Date.now();
 		let lastDragPos = 0;
 		let dragVelocity = 0;
+		let animationID = 0;
 		let isMobile = window.innerWidth < 1024;
 
 		function getPositionX(event) {
@@ -99,14 +100,12 @@ function initCarousel() {
 		function setSliderPosition(position, animate = false) {
 			if (animate) {
 				track.style.transition = 'transform 0.3s ease-out';
-				requestAnimationFrame(() => {
-					track.style.transform = `translateX(${position}px)`;
-				});
+			}
+			track.style.transform = `translateX(${position}px)`;
+			if (animate) {
 				setTimeout(() => {
 					track.style.transition = '';
 				}, 300);
-			} else {
-				track.style.transform = `translateX(${position}px)`;
 			}
 		}
 
@@ -115,17 +114,56 @@ function initCarousel() {
 			const style = getComputedStyle(slide);
 			const width = slide.offsetWidth;
 			const marginRight = parseInt(style.marginRight) || 0;
-			return width + marginRight;
+			const marginLeft = parseInt(style.marginLeft) || 0;
+			const totalSpacing = marginRight + marginLeft;
+			return width + totalSpacing;
+		}
+
+		function updateActiveSlide() {
+			slides.forEach((slide, index) => {
+				slide.classList.toggle('active', index === currentIndex);
+			});
 		}
 
 		function setPositionByIndex(animate = true) {
 			const slideWidth = getSlideWidth();
-			currentTranslate = currentIndex * -slideWidth;
-			prevTranslate = currentTranslate;
+			const containerWidth = container.offsetWidth;
+			const containerStyle = getComputedStyle(container);
+			const containerPadding = parseInt(containerStyle.paddingLeft) || 0;
+			const trackStyle = getComputedStyle(track);
+			const trackPadding = parseInt(trackStyle.paddingLeft) || 0;
+			const trackGap = parseInt(trackStyle.gap) || 0; // Get the gap between slides
+			
+			// Calculate the total offset including all spacing
+			const totalOffset = ((containerWidth - slideWidth) / 2) - containerPadding - trackPadding;
+			
+			// Calculate the total movement needed per slide (slide width + gap)
+			const slideSpacing = slideWidth + trackGap;
+			let targetPosition = currentIndex * -slideSpacing;
+			
+			// Add total offset for centering
+			targetPosition += totalOffset;
+			
+			// Ensure we don't over-scroll at boundaries
+			const minTranslate = (-(slides.length - 1) * slideSpacing) + totalOffset;
+			const maxTranslate = totalOffset;
+			
+			targetPosition = Math.max(minTranslate, Math.min(maxTranslate, targetPosition));
+			
+			// Update positions
+			currentTranslate = targetPosition;
+			prevTranslate = targetPosition;
+			
+			// Apply the transform with or without animation
 			setSliderPosition(currentTranslate, animate);
-			updateDots();
-			updateProgress();
-			updateArrowButtons();
+			
+			// Update UI elements
+			requestAnimationFrame(() => {
+				updateDots();
+				updateProgress();
+				updateArrowButtons();
+				updateActiveSlide();
+			});
 		}
 
 		function updateDots() {
@@ -137,8 +175,10 @@ function initCarousel() {
 
 		function updateProgress() {
 			if (!progress) return;
+			const progressBar = progress.querySelector('.progress-bar');
+			if (!progressBar) return;
 			const progressPercent = (currentIndex / (slides.length - 1)) * 100;
-			progress.style.width = `${progressPercent}%`;
+			progressBar.style.transform = `translateX(${progressPercent}%)`;
 		}
 
 		function updateArrowButtons() {
@@ -164,7 +204,6 @@ function initCarousel() {
 		}
 
 		function handleDragStart(event) {
-			// Only prevent default for touch events
 			if (event.type === 'touchstart') {
 				event.preventDefault();
 			}
@@ -175,7 +214,9 @@ function initCarousel() {
 			lastDragPos = startPos;
 			dragVelocity = 0;
 			
+			cancelAnimationFrame(animationID);
 			track.style.cursor = 'grabbing';
+			track.classList.add('dragging');
 		}
 
 		function handleDragMove(event) {
@@ -210,42 +251,46 @@ function initCarousel() {
 			
 			isDragging = false;
 			track.style.cursor = 'grab';
+			track.classList.remove('dragging');
 			
 			const slideWidth = getSlideWidth();
 			const movedBy = currentTranslate - prevTranslate;
-			const velocityThreshold = 0.5;
-			const moveThreshold = slideWidth * 0.2;
+			const velocityThreshold = 0.3;
+			const moveThreshold = slideWidth * 0.1; // Even more sensitive threshold
 			
+			let slidesToMove = 0;
+			
+			// Determine movement based on velocity or distance
 			if (Math.abs(dragVelocity) > velocityThreshold) {
-				// Move based on velocity
-				if (dragVelocity < 0 && currentIndex < slides.length - 1) {
-					currentIndex++;
-				} else if (dragVelocity > 0 && currentIndex > 0) {
-					currentIndex--;
-				}
-			} else {
-				// Move based on distance
-				if (movedBy < -moveThreshold && currentIndex < slides.length - 1) {
-					currentIndex++;
-				} else if (movedBy > moveThreshold && currentIndex > 0) {
-					currentIndex--;
-				}
+				slidesToMove = dragVelocity < 0 ? 1 : -1;
+			} else if (Math.abs(movedBy) > moveThreshold) {
+				slidesToMove = movedBy < 0 ? 1 : -1;
 			}
 			
-			setPositionByIndex(true);
+			// Calculate target index with boundary checks
+			const targetIndex = Math.min(
+				Math.max(0, currentIndex + slidesToMove),
+				slides.length - 1
+			);
+			
+			// Always move to the nearest slide
+			moveToSlide(targetIndex);
 		}
 
 		// Initialize event listeners
-		if (isMobile) {
-			track.addEventListener('touchstart', handleDragStart, { passive: false });
-			track.addEventListener('touchmove', handleDragMove);
-			track.addEventListener('touchend', handleDragEnd);
-		} else {
-			track.addEventListener('mousedown', handleDragStart);
-			track.addEventListener('mousemove', handleDragMove);
-			track.addEventListener('mouseup', handleDragEnd);
-			track.addEventListener('mouseleave', handleDragEnd);
-		}
+		const touchOptions = { passive: false };
+		
+		// Add touch events to the container for better touch area
+		container.addEventListener('touchstart', handleDragStart, touchOptions);
+		container.addEventListener('touchmove', handleDragMove, touchOptions);
+		container.addEventListener('touchend', handleDragEnd);
+		container.addEventListener('touchcancel', handleDragEnd);
+
+		// Keep mouse events on track for desktop
+		track.addEventListener('mousedown', handleDragStart);
+		track.addEventListener('mousemove', handleDragMove);
+		track.addEventListener('mouseup', handleDragEnd);
+		track.addEventListener('mouseleave', handleDragEnd);
 
 		// Prevent images from being dragged
 		slides.forEach(slide => {
