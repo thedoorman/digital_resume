@@ -203,9 +203,22 @@ function initCarousel() {
 			setPositionByIndex(true);
 		}
 
+		// Initialize event listeners
+		const touchOptions = { passive: false };
+		
+		// Track if this was a drag vs a tap
+		let isDragIntent = false;
+		let touchStartTime = 0;
+
 		function handleDragStart(event) {
 			if (event.type === 'touchstart') {
-				event.preventDefault();
+				touchStartTime = Date.now();
+				isDragIntent = false;
+				// Remove preventDefault to allow link clicks
+				// Only prevent default if it's not on a link
+				if (!event.target.closest('a')) {
+					event.preventDefault();
+				}
 			}
 			
 			isDragging = true;
@@ -223,6 +236,14 @@ function initCarousel() {
 			if (!isDragging) return;
 			
 			const currentPosition = getPositionX(event);
+			const moveDistance = Math.abs(currentPosition - startPos);
+			
+			// If moved more than 10px, consider it a drag and prevent default
+			if (moveDistance > 10) {
+				isDragIntent = true;
+				event.preventDefault();
+			}
+			
 			const currentTime = Date.now();
 			const timeDelta = currentTime - lastDragTime;
 			
@@ -246,40 +267,46 @@ function initCarousel() {
 			lastDragTime = currentTime;
 		}
 
-		function handleDragEnd() {
+		function handleDragEnd(event) {
 			if (!isDragging) return;
 			
 			isDragging = false;
 			track.style.cursor = 'grab';
 			track.classList.remove('dragging');
 			
-			const slideWidth = getSlideWidth();
-			const movedBy = currentTranslate - prevTranslate;
-			const velocityThreshold = 0.3;
-			const moveThreshold = slideWidth * 0.1; // Even more sensitive threshold
+			const touchEndTime = Date.now();
+			const touchDuration = touchEndTime - touchStartTime;
 			
-			let slidesToMove = 0;
-			
-			// Determine movement based on velocity or distance
-			if (Math.abs(dragVelocity) > velocityThreshold) {
-				slidesToMove = dragVelocity < 0 ? 1 : -1;
-			} else if (Math.abs(movedBy) > moveThreshold) {
-				slidesToMove = movedBy < 0 ? 1 : -1;
+			// If this was a quick tap without much movement, don't prevent the link click
+			if (!isDragIntent && touchDuration < 200) {
+				return;
 			}
 			
-			// Calculate target index with boundary checks
-			const targetIndex = Math.min(
-				Math.max(0, currentIndex + slidesToMove),
-				slides.length - 1
-			);
-			
-			// Always move to the nearest slide
-			moveToSlide(targetIndex);
+			// Prevent the click if we detected drag intent
+			if (isDragIntent) {
+				event.preventDefault();
+				const slideWidth = getSlideWidth();
+				const movedBy = currentTranslate - prevTranslate;
+				const velocityThreshold = 0.3;
+				const moveThreshold = slideWidth * 0.1;
+				
+				let slidesToMove = 0;
+				
+				if (Math.abs(dragVelocity) > velocityThreshold) {
+					slidesToMove = dragVelocity < 0 ? 1 : -1;
+				} else if (Math.abs(movedBy) > moveThreshold) {
+					slidesToMove = movedBy < 0 ? 1 : -1;
+				}
+				
+				const targetIndex = Math.min(
+					Math.max(0, currentIndex + slidesToMove),
+					slides.length - 1
+				);
+				
+				moveToSlide(targetIndex);
+			}
 		}
 
-		// Initialize event listeners
-		const touchOptions = { passive: false };
-		
 		// Add touch events to the container for better touch area
 		container.addEventListener('touchstart', handleDragStart, touchOptions);
 		container.addEventListener('touchmove', handleDragMove, touchOptions);
