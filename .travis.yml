@@ -46,11 +46,7 @@ deploy:
       --exclude "node_modules/*" \
       --exclude ".env" \
       --exclude ".travis.yml" \
-      --exclude "test-deploy.sh" \
-    && aws s3 cp assets/css/style.css s3://jesseclark.io/assets/css/style.css \
-      --content-type "text/css" \
-      --cache-control "max-age=3600" \
-      --acl public-read
+      --exclude "test-deploy.sh"
   cleanup: false
   on:
     all_branches: true
