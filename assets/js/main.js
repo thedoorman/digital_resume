@@ -9,45 +9,48 @@ document.addEventListener('DOMContentLoaded', () => {
 // Menu functionality
 function initMenu() {
 	const menuButton = document.querySelector('.menu-button');
-	const nav = document.querySelector('.main-nav');
-	const backdrop = document.querySelector('.nav-backdrop');
+	const mainNav = document.querySelector('.main-nav');
+	const navBackdrop = document.querySelector('.nav-backdrop');
+	const navLinks = document.querySelectorAll('.nav-list a');
 	
-	if (!menuButton || !nav) {
+	if (!menuButton || !mainNav) {
 		console.warn('Menu elements not found');
 		return;
 	}
 
-	function toggleMenu(show) {
-		const isShowing = show ?? !nav.classList.contains('show');
-		menuButton.setAttribute('aria-expanded', String(isShowing));
-		nav.classList.toggle('show', isShowing);
-		backdrop?.classList.toggle('show', isShowing);
-		document.body.style.overflow = isShowing ? 'hidden' : '';
+	function toggleMenu() {
+		const isExpanded = menuButton.getAttribute('aria-expanded') === 'true';
+		menuButton.setAttribute('aria-expanded', !isExpanded);
+		mainNav.classList.toggle('active');
+		navBackdrop.setAttribute('aria-hidden', isExpanded);
+		document.body.style.overflow = isExpanded ? '' : 'hidden';
 	}
 
 	// Toggle menu on button click
-	menuButton.addEventListener('click', () => toggleMenu());
+	menuButton.addEventListener('click', toggleMenu);
 
 	// Close menu on navigation item click
-	nav.querySelectorAll('a').forEach(link => {
+	navLinks.forEach(link => {
 		link.addEventListener('click', () => {
-			if (link.getAttribute('href').startsWith('#')) {
-				toggleMenu(false);
+			if (mainNav.classList.contains('active')) {
+				toggleMenu();
 			}
 		});
 	});
 
 	// Close menu on backdrop click
-	backdrop?.addEventListener('click', () => toggleMenu(false));
+	navBackdrop?.addEventListener('click', toggleMenu);
 
 	// Close menu on escape key
-	document.addEventListener('keydown', e => {
-		if (e.key === 'Escape') toggleMenu(false);
+	document.addEventListener('keydown', (e) => {
+		if (e.key === 'Escape' && mainNav.classList.contains('active')) {
+			toggleMenu();
+		}
 	});
 
 	// Close menu on resize
 	window.addEventListener('resize', () => {
-		if (window.innerWidth > 640) toggleMenu(false);
+		if (window.innerWidth > 640) toggleMenu();
 	});
 }
 

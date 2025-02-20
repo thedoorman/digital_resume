@@ -74,6 +74,9 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    max-width: var(--container-width);
+    margin: 0 auto;
+    padding: 0 var(--container-padding);
 }
 
 .logo {
@@ -89,35 +92,123 @@ body {
   /* Mobile menu button */
 .menu-button {
     display: flex;
+    align-items: center;
+    justify-content: center;
     padding: var(--spacing-xs);
     background: none;
     border: none;
     color: var(--color-cyan);
     cursor: pointer;
-  }
-  
-  /* Mobile navigation */
-  .main-nav {
+    z-index: 101;
+    margin-right: 0; /* Remove the negative margin */
+}
+
+.menu-icon {
+    position: relative;
+    width: 24px;
+    height: 2px;
+    background-color: var(--color-cyan);
+    transition: all var(--transition-medium) ease;
+
+    &::before,
+    &::after {
+        content: '';
+        position: absolute;
+        left: 0; /* Ensure lines are aligned */
+        width: 100%; /* Use full width of parent */
+        height: 2px;
+        background-color: var(--color-cyan);
+        transition: all var(--transition-medium) ease;
+    }
+
+    &::before {
+        top: -8px; /* Use top instead of transform for better alignment */
+    }
+
+    &::after {
+        bottom: -8px; /* Use bottom instead of transform for better alignment */
+    }
+}
+
+/* Active state for menu button */
+.menu-button[aria-expanded="true"] {
+    .menu-icon {
+        background-color: transparent;
+
+        &::before {
+            top: 0;
+            transform: rotate(45deg);
+        }
+
+        &::after {
+            bottom: 0;
+            transform: rotate(-45deg);
+        }
+    }
+}
+
+/* Mobile navigation */
+.main-nav {
     position: fixed;
     inset: var(--header-height) 0 0 0;
-    background: rgba(15, 23, 42, 0.95);
-    backdrop-filter: blur(10px);
+    background-color: var(--color-bg);
     padding: var(--spacing-md);
     transform: translateX(100%);
-    transition: transform 0.3s ease;
-  }
-  
-  .main-nav.active {
-    transform: translateX(0);
-  }
-  
-  .nav-list {
+    transition: transform var(--transition-medium) ease;
+    z-index: 100;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    
+    &.active {
+        transform: translateX(0);
+    }
+}
+
+.nav-list {
     list-style: none;
-        display: flex;
+    display: flex;
     flex-direction: column;
     gap: var(--spacing-md);
-  }
-  
+    align-items: stretch;
+    padding: var(--spacing-md);
+    height: 100%;
+}
+
+.nav-list a {
+    color: var(--color-cyan);
+    text-decoration: none;
+    padding: var(--spacing-sm);
+    border-radius: 4px;
+    background: rgba(34, 211, 238, 0.1);
+    border: 1px solid var(--color-cyan);
+    width: 100%;
+    text-align: center;
+    transition: all var(--transition-medium) ease;
+    font-size: 1.1rem;
+    display: block;
+    backdrop-filter: blur(4px);
+    
+    &:hover {
+        background: rgba(34, 211, 238, 0.2);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(34, 211, 238, 0.15);
+    }
+}
+
+.nav-backdrop {
+    position: fixed;
+    inset: 0;
+    background-color: var(--color-bg);
+    opacity: 0;
+    visibility: hidden;
+    transition: all var(--transition-medium) ease;
+    z-index: 99;
+    
+    &[aria-hidden="false"] {
+        opacity: 0.97;
+        visibility: visible;
+    }
+}
+
   /* Buttons */
   .button {
     display: inline-flex;
@@ -214,12 +305,48 @@ body {
       padding: 0;
       transform: none;
       background: none;
-      backdrop-filter: none;
+      box-shadow: none;
     }
   
     .nav-list {
       flex-direction: row;
       gap: var(--spacing-lg);
+      padding: 0;
+      align-items: center;
+      height: auto;
+    }
+  
+    .nav-list a {
+      background: none;
+      border: none;
+      width: auto;
+      padding: var(--spacing-xs);
+      font-size: 1rem;
+      backdrop-filter: none;
+      box-shadow: none;
+      position: relative;
+
+      &::after {
+          content: '';
+          position: absolute;
+          bottom: -2px;
+          left: 0;
+          width: 0;
+          height: 2px;
+          background: var(--color-cyan);
+          transition: width var(--transition-medium) ease;
+      }
+
+      &:hover {
+          background: none;
+          transform: none;
+          box-shadow: none;
+          color: var(--color-cyan);
+
+          &::after {
+              width: 100%;
+          }
+      }
     }
   
     .button-group {
@@ -337,24 +464,47 @@ body {
   }
   
   /* Notifications */
-  .notification {
+  .notification-container {
       position: fixed;
       bottom: 2rem;
       right: 2rem;
-      padding: 1rem 2rem;
-      border-radius: 4px;
-      color: var(--color-bg);
-      font-size: 0.9rem;
       z-index: 1000;
+  }
+  
+  .notification {
+      padding: 1rem 2rem;
+      margin-bottom: 0.5rem;
+      border-radius: 4px;
+      background: var(--color-bg);
+      border: 1px solid;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
       animation: slideIn 0.3s ease;
+      max-width: 300px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
   }
   
   .notification.success {
-      background: var(--color-cyan);
+      background: rgba(34, 211, 238, 0.1);
+      border-color: var(--color-cyan);
+      color: var(--color-text-primary);
   }
   
   .notification.error {
-      background: var(--color-text);
+      background: rgba(236, 72, 153, 0.1);
+      border-color: var(--color-text);
+      color: var(--color-text-primary);
+  }
+  
+  .notification-icon {
+      flex-shrink: 0;
+      color: var(--color-cyan);
+  }
+  
+  .notification.error .notification-icon {
+      color: var(--color-text);
   }
   
   @keyframes slideIn {
@@ -1356,20 +1506,28 @@ body {
       gap: 0.5rem;
       animation: slideIn 0.3s ease;
       max-width: 300px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
   }
   
   .notification.success {
+      background: rgba(34, 211, 238, 0.1);
       border-color: var(--color-cyan);
-      color: var(--color-cyan);
+      color: var(--color-text-primary);
   }
   
   .notification.error {
+      background: rgba(236, 72, 153, 0.1);
       border-color: var(--color-text);
-      color: var(--color-text);
+      color: var(--color-text-primary);
   }
   
   .notification-icon {
       flex-shrink: 0;
+      color: var(--color-cyan);
+  }
+  
+  .notification.error .notification-icon {
+      color: var(--color-text);
   }
   
   @keyframes slideIn {
