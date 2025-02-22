@@ -18,39 +18,46 @@ function initMenu() {
 		return;
 	}
 
-	function toggleMenu() {
+	function toggleMenu(force = null) {
 		const isExpanded = menuButton.getAttribute('aria-expanded') === 'true';
-		menuButton.setAttribute('aria-expanded', !isExpanded);
-		mainNav.classList.toggle('active');
-		navBackdrop.setAttribute('aria-hidden', isExpanded);
-		document.body.style.overflow = isExpanded ? '' : 'hidden';
+		const newState = force !== null ? force : !isExpanded;
+		menuButton.setAttribute('aria-expanded', newState);
+		mainNav.classList.toggle('active', newState);
+		navBackdrop.setAttribute('aria-hidden', !newState);
+		document.body.style.overflow = newState ? 'hidden' : '';
 	}
 
 	// Toggle menu on button click
-	menuButton.addEventListener('click', toggleMenu);
+	menuButton.addEventListener('click', () => toggleMenu());
 
 	// Close menu on navigation item click
 	navLinks.forEach(link => {
 		link.addEventListener('click', () => {
 			if (mainNav.classList.contains('active')) {
-				toggleMenu();
+				toggleMenu(false);
 			}
 		});
 	});
 
 	// Close menu on backdrop click
-	navBackdrop?.addEventListener('click', toggleMenu);
+	navBackdrop?.addEventListener('click', () => toggleMenu(false));
 
 	// Close menu on escape key
 	document.addEventListener('keydown', (e) => {
 		if (e.key === 'Escape' && mainNav.classList.contains('active')) {
-			toggleMenu();
+			toggleMenu(false);
 		}
 	});
 
-	// Close menu on resize
+	// Handle window resize without toggling menu
+	let resizeTimeout;
 	window.addEventListener('resize', () => {
-		if (window.innerWidth > 640) toggleMenu();
+		clearTimeout(resizeTimeout);
+		resizeTimeout = setTimeout(() => {
+			if (window.innerWidth >= 1024) {
+				toggleMenu(false);
+			}
+		}, 100);
 	});
 }
 
