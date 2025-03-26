@@ -91,9 +91,9 @@ body {
 
   /* Mobile menu button */
 .menu-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     padding: var(--spacing-xs);
     background: none;
     border: none;
@@ -101,23 +101,23 @@ body {
     cursor: pointer;
     z-index: 101;
     margin-right: 0; /* Remove the negative margin */
-}
-
-.menu-icon {
-    position: relative;
+    }
+    
+    .menu-icon {
+        position: relative;
     width: 24px;
-    height: 2px;
-    background-color: var(--color-cyan);
-    transition: all var(--transition-medium) ease;
-
-    &::before,
-    &::after {
-        content: '';
-        position: absolute;
-        left: 0; /* Ensure lines are aligned */
-        width: 100%; /* Use full width of parent */
         height: 2px;
         background-color: var(--color-cyan);
+    transition: all var(--transition-medium) ease;
+        
+        &::before,
+        &::after {
+            content: '';
+            position: absolute;
+        left: 0; /* Ensure lines are aligned */
+        width: 100%; /* Use full width of parent */
+            height: 2px;
+            background-color: var(--color-cyan);
         transition: all var(--transition-medium) ease;
     }
 
@@ -132,15 +132,15 @@ body {
 
 /* Active state for menu button */
 .menu-button[aria-expanded="true"] {
-    .menu-icon {
-        background-color: transparent;
-
-        &::before {
+        .menu-icon {
+            background-color: transparent;
+            
+            &::before {
             top: 0;
             transform: rotate(45deg);
-        }
-
-        &::after {
+            }
+            
+            &::after {
             bottom: 0;
             transform: rotate(-45deg);
         }
@@ -149,24 +149,24 @@ body {
 
 /* Mobile navigation */
 .main-nav {
-    position: fixed;
+        position: fixed;
     inset: var(--header-height) 0 0 0;
     background-color: rgba(10, 15, 25, 0.98);
     padding: var(--spacing-md);
-    transform: translateX(100%);
+        transform: translateX(100%);
     transition: transform var(--transition-medium) ease;
     z-index: 100;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-    
+        
     &.active {
-        transform: translateX(0);
+            transform: translateX(0);
     }
 }
 
 .nav-list {
     list-style: none;
     display: flex;
-    flex-direction: column;
+        flex-direction: column;
     gap: var(--spacing-md);
     align-items: stretch;
     padding: var(--spacing-xl);
@@ -180,20 +180,20 @@ body {
 
 .nav-list a {
     color: var(--color-cyan);
-    text-decoration: none;
+        text-decoration: none;
     padding: var(--spacing-md);
     border-radius: 6px;
     background: var(--color-bg);
-    border: 1px solid var(--color-cyan);
-    width: 100%;
-    text-align: center;
+            border: 1px solid var(--color-cyan);
+            width: 100%;
+            text-align: center;
     transition: all var(--transition-medium) ease;
     font-size: 1.2rem;
     display: block;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-    
-    &:hover {
+            
+            &:hover {
         background: rgba(34, 211, 238, 0.15);
         transform: translateY(-2px);
         box-shadow: 0 4px 12px rgba(34, 211, 238, 0.2);
@@ -202,20 +202,20 @@ body {
 }
 
 .nav-backdrop {
-    position: fixed;
+        position: fixed;
     inset: 0;
     background-color: rgba(10, 15, 25, 0.95);
-    opacity: 0;
-    visibility: hidden;
+        opacity: 0;
+        visibility: hidden;
     transition: all var(--transition-medium) ease;
     z-index: 99;
     backdrop-filter: blur(8px) brightness(0.9);
-    
+        
     &[aria-hidden="false"] {
-        opacity: 1;
-        visibility: visible;
+            opacity: 1;
+            visibility: visible;
+        }
     }
-}
 
   /* Buttons */
   .button {
@@ -279,6 +279,8 @@ body {
     flex-direction: column;
     gap: var(--spacing-md);
     margin-bottom: var(--spacing-lg);
+    max-width: var(--container-width);
+    margin-inline: auto;
   }
   
   .welcome {
@@ -293,7 +295,7 @@ body {
   
   .button-group {
     display: flex;
-        flex-direction: column;
+    flex-direction: column;
     gap: var(--spacing-sm);
     margin-top: var(--spacing-md);
   }
@@ -370,7 +372,7 @@ body {
   
   /* Contact Section */
   .contact-grid {
-    display: grid;
+        display: grid;
       gap: var(--spacing-lg);
       margin-top: var(--spacing-lg);
   }
@@ -473,7 +475,7 @@ body {
       backdrop-filter: blur(8px);
       border: 1px solid;
       font-size: 0.9rem;
-      display: flex;
+    display: flex;
       align-items: center;
       gap: 0.5rem;
       animation: slideIn 0.3s ease;
@@ -483,7 +485,7 @@ body {
   
   .notification.success {
       background: rgba(10, 15, 25, 0.98);
-      border-color: var(--color-cyan);
+        border-color: var(--color-cyan);
       color: var(--color-text-primary);
       box-shadow: 0 4px 20px rgba(34, 211, 238, 0.1);
   }
@@ -566,7 +568,7 @@ body {
   .experience-card {
       background: rgba(255, 255, 255, 0.03);
       border: 1px solid rgba(34, 211, 238, 0.1);
-        border-radius: 8px;
+                border-radius: 8px;
       padding: var(--spacing-lg);
       margin-bottom: var(--spacing-md);
       transition: transform var(--transition-medium) ease,
@@ -575,7 +577,7 @@ body {
   }
   
   .experience-card:hover {
-            transform: translateY(-2px);
+                    transform: translateY(-2px);
       border-color: rgba(34, 211, 238, 0.3);
       box-shadow: 0 4px 20px rgba(34, 211, 238, 0.1);
   }
@@ -747,7 +749,9 @@ body {
             }
             
             .button-group {
-          justify-content: flex-start;
+          flex-direction: row;
+          align-items: flex-start;
+          gap: var(--spacing-md);
       }
   }
   
@@ -1450,7 +1454,7 @@ body {
       padding: 1rem;
       background: linear-gradient(90deg, var(--color-text), var(--color-cyan));
       border: none;
-      border-radius: 4px;
+    border-radius: 4px;
       color: var(--color-bg);
       font-family: var(--font-mono);
       font-size: 1rem;
